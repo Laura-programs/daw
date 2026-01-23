@@ -1,0 +1,49 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#principal {
+    width: 30%;
+    height: 90%;
+}
+
+h2, a, i {
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 42px;
+}
+
+form {
+    display: flex;
+    row-gap: 16px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.grupo-input {
+    width: 75%;
+}
+
+label {
+    margin-bottom: 16px;
+    height: fit-content;
+}
+
+label, button, a {
+    font-size: 24px !important;
+}
+
+a {
+    display: block;
+    margin:16px auto;
+}
+
+.icono-registro {
+    font-size: 64px;
+    display: block;
+    margin: 0 auto;
+}

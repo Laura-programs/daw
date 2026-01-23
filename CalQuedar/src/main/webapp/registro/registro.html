@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro</title>
+    <link href="../styles/styles.css" rel="stylesheet" />
+    <link href="./registro.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+  </head>
+  <body>
+    <header class="fondo-principal">
+      <img src="../img/logo.png" alt="Logo CalQuedar" />
+      <h1>CalQuedar</h1>
+      <div></div>
+    </header>
+    <main>
+      <div
+        aria-roledescription="Contenedor del form"
+        class="fondo-principal radio-24 shadow"
+        id="principal"
+      >
+        <i class="bi bi-emoji-laughing icono-registro"></i>
+        <h2>Regístrate</h2>
+        <form
+          action="/CalQuedar/Registro"
+          method="post"
+          id="formRegistro"
+          novalidate
+        >
+          <div class="grupo-input">
+            <label for="nombre">Nombre/Apodo</label>
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              class="form-control"
+              required
+            />
+            <div class="invalid-feedback">
+              El nombre solo pude contener letras y espacios, pero no espacios
+              dobles ni al principio o al final
+            </div>
+          </div>
+          <div class="grupo-input">
+            <label for="username">Usuario</label>
+            <div class="input-group">
+              <div class="input-group-text">@</div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Username"
+                name="username"
+                id="username"
+                required
+              />
+              <div class="invalid-feedback" id="error-usuario"></div>
+            </div>
+          </div>
+          <div class="grupo-input">
+            <label for="contrasenya">Contraseña</label>
+            <div class="input-group">
+              <input
+                type="password"
+                id="contrasenya"
+                name="contrasenya"
+                class="form-control"
+                required
+              />
+              <div class="input-group-text">
+                <input
+                  class="form-check-input mt-0"
+                  type="checkbox"
+                  value=""
+                  id="ver-contrasenya"
+                  aria-label="Checkbox para mostrar contraseña"
+                  aria-checked="false"
+                />
+              </div>
+              <div class="invalid-feedback">
+                La contraseña no es segura, debe contener minúsculas,
+                mayúsculas, número y carácter especial
+              </div>
+            </div>
+          </div>
+          <div class="grupo-input">
+            <label for="contrasenyaRepe">Repetir contraseña</label>
+            <div class="input-group">
+              <input
+                type="password"
+                name="contrasenyaRepe"
+                id="contrasenyaRepe"
+                class="form-control"
+                required
+              />
+              <div class="input-group-text">
+                <input
+                  class="form-check-input mt-0"
+                  type="checkbox"
+                  id="ver-contrasenya-repe"
+                  value=""
+                  aria-label="Checkbox para mostrar contraseña"
+                  aria-checked="false"
+                />
+              </div>
+              <div class="invalid-feedback">Las contraseñas no coinciden</div>
+            </div>
+          </div>
+          <button type="submit" class="boton boton-grande">Regístrate</button>
+        </form>
+        <a href="/CalQuedar/Login">¿Ya tienes cuenta? Iniciar sesión</a>
+      </div>
+    </main>
+    <footer class="fondo-principal">
+      <p>Desarrollado por Laura Mora Mulero</p>
+    </footer>
+    <script src="./registro.js" type="module"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

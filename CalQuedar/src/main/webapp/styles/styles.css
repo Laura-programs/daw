@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap');
+
+:root {
+    /*
+    Paleta principal
+    */
+    /*Sandy brown - Botones y bordes del calendario y ventana de evento*/
+    --principal-oscuro: #FFA86B;
+    /*Apricot cream - Fondos importantes, header y footer*/
+    --principal-medio-oscuro: #FFCC84;
+    /*Navajo white - Días calendario*/
+    --principal-medio-claro: #FFD991;
+    /*Vanilla custard - Bordes*/
+    --principal-claro: #FFE69E;
+
+    /*
+    Paleta principal - fondos
+    */
+
+
+    /*
+    Paleta secundaria
+    */
+    /*Banana cream y Vanilla custard - Viaje*/
+    --amarillo-principal: #FDF148;
+    --amarillo-fondo: #FEF8A3;
+    /*Orange y Jasmine -  Día libre*/
+    --naranja-principal: #FFAB00;
+    --naranja-fondo: #FFD580;
+    /*Hot fuchsia y Cherry blossom - Cita*/
+    --rojo-principal: #F04F5A;
+    --rojo-fondo: #F7A7AC;
+    /*Rose kiss y blush pop - Plan grupo*/
+    --rosa-principal: #F777AE;
+    --rosa-fondo: #FBBBD6;
+    /*Purple(X11) y Mauve - Misc.*/
+    --purpura-principal: #9646f2;
+    --purpura-fondo: #CAA2F8;
+    /*Sky blue (Light) y Frosted Blue - Médico*/
+    --azul-principal: #52D0E3;
+    --azul-fondo: #A8E7F1;
+    /*Slime lime y Lime cream - Selfcare*/
+    --verde-principal: #A0E426;
+    --verde-fondo: #CFF192;
+}
+
+/*Customización tipografías*/
+
+h1,
+h2,
+h3 {
+    font-family: 'Roboto Serif';
+    font-weight: bold;
+}
+
+* {
+    font-family: "Atkinson Hyperlegible", sans-serif;
+}
+
+/*Customización cuerpo*/
+
+body {
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: auto 1fr auto;
+    margin: 0;
+}
+
+.fondo-principal {
+    background-color: var(--principal-medio-oscuro);
+}
+
+.fondo-boton-bordes {
+    background-color: var(--principal-oscuro);
+}
+
+.radio-8 {
+    border-radius: 8px;
+}
+
+.radio-24 {
+    border-radius: 24px;
+}
+
+.boton {
+    background-color: var(--principal-oscuro);
+    border-radius: 8px;
+    border: none;
+}
+
+.boton-grande {
+    width: 75%;
+    height: 40px;
+}
+
+.boton-pequeño {
+    width: 125px;
+    height: 30px;
+}
+
+/*Customización header*/
+
+header {
+    height: 75px;
+    min-height: fit-content;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+}
+
+header h1 {
+    justify-self: center;
+    width: fit-content;
+}
+
+header img {
+    height: 65px;
+    margin-left: 8px;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row-reverse;
+    align-content: center;
+    margin: 0;
+}
+
+header nav a {
+    color: black;
+}
+
+.icono-nav {
+    font-size: 40px;
+    margin: 0 8px 0 8px;
+}
+
+.dropdown {
+    cursor: pointer;
+}
+
+.dropdown {
+  float: right;
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  min-width: fit-content;
+  overflow: auto;
+  right: 0;
+  z-index: 1;
+  
+}
+
+.dropdown-content a {
+    color: black;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    white-space: nowrap;
+    border: 4px solid var(--principal-medio-oscuro);
+  border-radius: 8px;
+  padding: 0 16px 0 16px;
+}
+
+.muestra {
+    display: block;
+}
+
+/*Customización footer*/
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+footer p {
+    margin: 0;
+}
+
+/*Customización filtros/eventos*/
+.viaje {
+    background-color: var(--amarillo-fondo);
+    border-color: var(--amarillo-principal);
+}
+
+.dia-libre {
+    background-color: var(--naranja-fondo);
+    border-color: var(--naranja-principal);
+}
+
+.cita {
+    background-color: var(--rojo-fondo);
+    border-color: var(--rojo-principal);
+}
+
+.plan-grupo {
+    background-color: var(--rosa-fondo);
+    border-color: var(--rosa-principal);
+}
+
+.misc {
+    background-color: var(--purpura-fondo);
+    border-color: var(--purpura-principal);
+}
+
+.medico {
+    background-color: var(--azul-fondo);
+    border-color: var(--azul-principal);
+}
+
+.selfcare {
+    background-color: var(--verde-fondo);
+    border-color: var(--verde-principal);
+}
+
+.boton-filtro {
+    border-radius: 8px;
+    border-style: solid;
+    height: fit-content;
+}
+
+/*Pequeños arreglos*/
+p {
+    margin: 0 !important;
+    padding: 0;
+    height: fit-content;
+}

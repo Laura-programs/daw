@@ -1,0 +1,131 @@
+@import url(../styles/styles.css);
+
+main {
+    display: grid;
+    /* grid-template-columns: auto 1fr auto; */
+    grid-template-columns: 15% 70% 15%;
+}
+
+.calendario {
+    border: 5px solid var(--principal-oscuro);
+    border-radius: 24px;
+    margin: 8px;
+}
+
+.header-calendario {
+    border-bottom: 5px solid var(--principal-oscuro);
+    background-color: var(--principal-medio-oscuro);
+    border-radius: 25px 25px 0 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px 0 16px;
+}
+
+.header-calendar-nav {
+    display: flex;
+    align-content: center;
+}
+
+.boton-calendario {
+    background: none;
+    border: none;
+    font-size: 32px;
+}
+
+#mes-calendario {
+    font-size: 24px;
+    text-align: center;
+    width: 124px;
+}
+
+#hoy-es {
+    font-size: 24px;
+}
+
+#fecha-calendario {
+    font-weight: bolder;
+}
+
+.dias-semana, .dias-calendario {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    place-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.info-dia p{
+    border: 2px solid var(--principal-claro);
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border-radius: 4px;
+    margin: 2px !important;
+}
+
+.dias-semana {
+    border-bottom: 5px solid var(--principal-oscuro);
+    margin: 0;
+}
+
+.dias-calendario {
+    background-color: var(--principal-oscuro);
+    grid-gap: 3px;
+    grid-auto-rows: minmax(130px, auto);
+}
+
+.dia-calendario {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+}
+
+.dia-calendario::marker {
+    content: "";
+}
+
+.filtros {
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 5px solid var(--principal-oscuro);
+    margin-bottom: 16px;
+    padding: 8px 0 8px 0;
+}
+
+.boton-filtro {
+    width: 100%;
+    margin: 5px;
+}
+
+.dia-calendario--oculto {
+    display: none;
+}
+
+.lateral-izquierda {
+    border-right: 5px solid var(--principal-claro);
+    border-radius: 0 24px 24px 0;
+}
+
+.lateral-izquierda h2 {
+    border-bottom: 5px solid var(--principal-claro);
+    text-align: center;
+    margin: 8px 0 8px 0;
+}
+
+/*Aside derecha*/
+
+.lateral-derecha {
+    border-left: 5px solid var(--principal-claro);
+    border-radius: 24px 0 0 24px;
+}
+
+.boton-abajo {
+    bottom: 0;
+    position: relative;
+}
+
+.contenido-menu {
+    height: 100%;
+}

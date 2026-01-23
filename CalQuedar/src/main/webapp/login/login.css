@@ -1,0 +1,57 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#principal {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+h2, a, i {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.grupo-input {
+    width: 75%;
+    margin: 16px 0;
+}
+
+.grupo-checkbox {
+    display: flex;
+}
+
+.grupo-checkbox input {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+label {
+    margin-bottom: 16px;
+}
+
+label, button, a {
+    font-size: 24px !important;
+}
+
+a {
+    display: block;
+    margin:16px auto;
+}
+
+.icono-login {
+    font-size: 64px;
+    display: block;
+    margin: 0 auto;
+}
