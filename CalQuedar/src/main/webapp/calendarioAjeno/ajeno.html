@@ -2,9 +2,9 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <title>Calendario personal</title>
+    <title>Visitando amistades</title>
     <link href="../styles/styles.css" rel="stylesheet" />
-    <link href="./index.css" rel="stylesheet" />
+    <link href="./ajeno.css" rel="stylesheet" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -19,7 +19,7 @@
   <body>
     <header class="fondo-principal">
       <img src="../img/logo.png" alt="Logo CalQuedar" />
-      <h1>¡Buenos días!</h1>
+      <h1>Visitando a NombreAmigo</h1>
       <nav>
         <ul>
           <li>
@@ -38,7 +38,7 @@
               ><i class="bi bi-house-door icono-nav"></i
             ></a>
           </li>
-          <li>
+          <li hidden aria-hidden="true">
             <a href="#"><i class="bi bi-patch-plus icono-nav"></i></a>
           </li>
         </ul>
@@ -199,98 +199,19 @@
         </div>
       </section>
       <aside class="lateral-derecha">
-        <div class="pestanyas" aria-roledescription="Pestañas para alternar la visualización">
-          <button id="grupos" class="selected-grupos pestanya">Grupos</button>
-          <button id="amigos" class="unselected-amigos pestanya">Amigos</button>
-        </div>
-        <!--Menú amigos-->
-        <div
-          aria-roledescription="Menú lateral con listado de amigos y funcionalidad"
-          class="contenido-menu contenido-menu-amigos"
-          hidden
-          aria-hidden="true"
-        >
-          <div aria-roledescription="Listado de amigos" id="lista-amigos"></div>
-          <button class="boton boton-pequeño boton-abajo">Añadir amigo</button>
-        </div>
-        <!--Menú grupos-->
-        <div
-          aria-roledescription="Menú lateral con listado de grupos y funcionalidad"
-          class="contenido-menu contenido-menu-grupos"
-        >
-          <div
-            aria-roledescription="Listado de grupos"
-            id="lista-grupos"
-            class="lista"
-          ></div>
-          <div
-            aria-roledescription="Grupo botones funcionalidad grupo"
-            class="grupo-botones"
-          >
-            <button class="boton boton-pequeño" id="crear-grupo-btn">Crear grupo</button>
-            <button class="boton boton-pequeño" id="unir-grupo-btn">
-              Añadir grupo
-            </button>
-          </div>
-        </div>
+        <h2>Amigos en común</h2>
+        <div id="amigos-comun"></div>
       </aside>
     </main>
-
-    <!--Modales-->
-
-    <!--Modal crear grupo-->
-    <div class="my-modal" id="modal-crear-grupo" aria-roledescription="Diálogo para crear un grupo">
-      <div class="contenido-modal">
-        <div class="header-modal" aria->
-          <p>¡Nuevo grupo!</p>
-        </div>
-        <div class="cuerpo-modal">
-          <form action="#">
-            <label for="group-name">Escribe el nombre del grupo</label>
-            <input
-              type="text"
-              name="group-name"
-              id="group-name"
-              class="form-control"
-              placeholder="Happy flowers"
-            />
-            <button type="submit" class="boton boton-pequeño">Crear</button>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <!--Modal añadir grupo-->
-    <div class="my-modal" id="modal-anadir-grupo" aria-roledescription="Diálogo para unirse a un grupo">
-      <div class="contenido-modal">
-        <div class="header-modal" aria->
-          <p>Uniéndose a la pandilla</p>
-        </div>
-        <div class="cuerpo-modal">
-          <form action="#">
-            <label for="group-name">Escribe el código del grupo</label>
-            <input
-              type="text"
-              name="group-name"
-              id="group-name"
-              class="form-control"
-              placeholder="C3C228"
-            />
-            <button type="submit" class="boton boton-pequeño" id="crear-grupo-btn">Unirse</button>
-          </form>
-        </div>
-      </div>
-    </div>
 
     <footer class="fondo-principal">
       <p>Desarrollado por Laura Mora Mulero</p>
     </footer>
-    <script src="./index.js" type="module"></script>
+    <script src="./ajeno.js" type="module"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
-    <script src="./index.jsformatTitle"></script>
   </body>
 </html>

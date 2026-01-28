@@ -1,11 +1,12 @@
 import { fechaCalendario, calendario, diasCalendario, primerDiaGrid, botonMesAntes, botonMesDespues, mesCalendario } from "../selectores.js";
 
+const fechaViendo = new Date();
 const fechaHoy = new Date();
 
 export function cargaCalendario() {
-    const dia = fechaHoy.getDay();
-    const mes = fechaHoy.getMonth();
-    const anyo = fechaHoy.getFullYear();
+    const dia = fechaViendo.getDay();
+    const mes = fechaViendo.getMonth();
+    const anyo = fechaViendo.getFullYear();
 
     const primerMesFecha = new Date(anyo, mes, 1);
     const ultimoMesFecha = new Date(anyo, mes + 1, 0);
@@ -17,7 +18,7 @@ export function cargaCalendario() {
     })
     fechaCalendario.textContent = tituloCalendario;
 
-    const mesVisitando = fechaHoy.toLocaleDateString("es-ES", {
+    const mesVisitando = fechaViendo.toLocaleDateString("es-ES", {
         month: "long"
     })
 
@@ -36,7 +37,7 @@ export function cargaCalendario() {
 }
 
 export function cambiaMes(paso) {
-    const mesActual = fechaHoy.getMonth();
-    fechaHoy.setMonth(mesActual + paso);
+    const mesActual = fechaViendo.getMonth();
+    fechaViendo.setMonth(mesActual + paso);
     cargaCalendario()
 }

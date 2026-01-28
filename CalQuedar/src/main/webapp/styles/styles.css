@@ -17,7 +17,7 @@
     Paleta principal - fondos
     */
 
-
+    --secundario-claro: #FFF2CE;
     /*
     Paleta secundaria
     */
@@ -55,6 +55,7 @@ h3 {
 
 * {
     font-family: "Atkinson Hyperlegible", sans-serif;
+    box-sizing: border-box;
 }
 
 /*Customización cuerpo*/
@@ -152,7 +153,8 @@ header nav a {
   overflow: auto;
   right: 0;
   z-index: 1;
-  
+  background-color: white;
+  border-radius: 12px;
 }
 
 .dropdown-content a {
@@ -223,6 +225,48 @@ footer p {
     border-radius: 8px;
     border-style: solid;
     height: fit-content;
+}
+
+/*Customizacion modales*/
+.my-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    
+}
+
+.contenido-modal {
+    height: fit-content;
+    width: 300px;
+    border-radius: 24px;
+    border: 4px solid var(--principal-medio-oscuro);
+    margin: 20% auto;
+}
+
+.header-modal {
+    height: 45px;
+    background-color: var(--principal-medio-oscuro);
+    font-size: 16px;
+    text-align: center;
+    border-radius: 18px 18px 0 0;
+}
+
+.cuerpo-modal {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    font-size: 16px;
+    padding: 16px;
+    border-radius: 0 0 20px 20px;
+}
+
+.cuerpo-modal>button {
+    margin: 0 auto;
+    display: block;
 }
 
 /*Pequeños arreglos*/

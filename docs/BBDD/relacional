@@ -1,0 +1,37 @@
+USUARIO (nombre, contraseña, username)
+    PK = username
+    VNN = contraseña, username
+
+GRUPO (nombre, ID)
+    PK = ID
+    VNN = nombre
+
+AMIGOS (amigo1, amigo2)
+    PK = amigo1, amigo2
+    FK = amigo1 ---> USUARIO(username)
+    FK = amigo2 ---> USUARIO(username)
+
+NOTIFICACION(fecha plan, leido, respuesta, ID, idGrupo)
+    PK = ID
+    VNN = fecha plan, leido
+    FK = idGrupo ---> GRUPO (ID)
+
+GRUPO (Entrada, username, grupo)
+    PK = username, grupo
+    VNN = Entrada
+    FK = username ---> USUARIO(username)
+    FK = grupo ---> GRUPO (ID)
+
+EVENTO PERSONAL (ID, titulo, visibilidad, etiqueta, fecha, descripcion, usernameCreador, usernameParticipantes)
+    PK = ID
+    VNN = visibilidad, etiqueta, fecha, usernameCreador
+    FK = usernameCreador ---> USUARIO(username)
+
+EVENTO GRUPAL (ID, P.final, fecha, grupo)
+	PK = ID
+	VNN = fecha, grupo
+	FK = grupo ---> GRUPO(ID)
+	
+PARTICIPANTES GRUPAL (evento, usuario, sugerencia)
+	PK = evento, usuario
+	FK = evento ---> EVENTO GRUPAL(ID)

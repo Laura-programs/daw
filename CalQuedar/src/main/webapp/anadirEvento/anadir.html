@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Añadiendo eventos</title>
+    <link href="../styles/styles.css" rel="stylesheet" />
+    <link href="./anadir.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+  </head>
+  <body>
+    <header class="fondo-principal">
+      <img src="../img/logo.png" alt="Logo CalQuedar" />
+      <h1>¡Buenos días!</h1>
+      <nav>
+        <ul>
+          <li>
+            <div class="dropdown">
+              <a class="dropbtn"
+                ><i class="bi bi-emoji-laughing icono-nav"></i
+              ></a>
+              <div id="miDropdown" class="dropdown-content">
+                <a href="/CalQuedar/LogOutServlet">Cerrar sesión</a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a href="#"><i class="bi bi-bell icono-nav"></i></a>
+          </li>
+          <li>
+            <a href="/CalQuedar/Login"
+              ><i class="bi bi-house-door icono-nav"></i
+            ></a>
+          </li>
+          <li>
+            <a href="#"><i class="bi bi-patch-plus icono-nav"></i></a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <aside class="lateral-izquierda">
+        <h2>Próximos eventos</h2>
+        <div id="proximos-eventos"></div>
+      </aside>
+      <section class="centro">
+        <div
+          class="formulario shadow-lg"
+          aria-roledescription="Caja para el formulario"
+        >
+          <div class="header-form">
+            <h2>Nuevo evento</h2>
+          </div>
+          <form action="#" id="form">
+            <div class="form-izquierda">
+              <label for="titulo">Título</label>
+              <input
+                type="text"
+                id="titulo"
+                name="titulo"
+                class="form-control"
+                placeholder="Nuevo evento"
+              />
+              <label for="visibilidad">Visibilidad</label>
+              <select name="visibilidad" id="visibilidad" class="form-select">
+                <option value="" selected hidden disabled>
+                  Selecciona visibilidad
+                </option>
+                <option value="publico">Público</option>
+                <option value="privado">Privado</option>
+              </select>
+              <label for="etiqueta">Etiqueta</label>
+              <select name="etiqueta" id="etiqueta" class="form-select">
+                <option value="viaje">Viaje</option>
+                <option value="dia libre">Día libre</option>
+                <option value="cita">Cita</option>
+                <option value="plan grupo">Plan grupo</option>
+                <option value="misc">Misc.</option>
+                <option value="medico">Médico</option>
+                <option value="selfcare">Selfcare</option>
+              </select>
+              <label for="fecha">Fecha y hora</label>
+              <input
+                type="datetime-local"
+                name="fecha"
+                id="fecha"
+                class="form-control"
+              />
+            </div>
+            <div class="form-derecha">
+              <div class="textarea-derecha">
+                <label for="descripcion">Descripción</label>
+              <textarea
+                name="descripcion"
+                id="descripcion"
+                cols="30"
+                rows="10"
+                class="form-control"
+                placeholder="¿Qué tienes que hacer?"
+              ></textarea>
+              </div>
+              <div class="controles-form">
+                <button type="submit"><i class="bi bi-check-lg"></i></button>
+                <button type="reset"><i class="bi bi-x-lg"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!--Menú lateral derecha-->
+      <aside class="lateral-derecha">
+        <div
+          class="pestanyas"
+          aria-roledescription="Pestañas para alternar la visualización"
+        >
+          <button id="grupos" class="selected-grupos pestanya">Grupos</button>
+          <button id="amigos" class="unselected-amigos pestanya">Amigos</button>
+        </div>
+        <!--Menú amigos-->
+        <div
+          aria-roledescription="Menú lateral con listado de amigos y funcionalidad"
+          class="contenido-menu contenido-menu-amigos"
+          hidden
+          aria-hidden="true"
+        >
+          <div aria-roledescription="Listado de amigos" id="lista-amigos"></div>
+          <button
+            class="boton boton-pequeño boton-abajo"
+            disabled
+            aria-disabled="true"
+          >
+            Añadir amigo
+          </button>
+        </div>
+        <!--Menú grupos-->
+        <div
+          aria-roledescription="Menú lateral con listado de grupos y funcionalidad"
+          class="contenido-menu contenido-menu-grupos"
+        >
+          <div
+            aria-roledescription="Listado de grupos"
+            id="lista-grupos"
+            class="lista"
+          ></div>
+          <div
+            aria-roledescription="Grupo botones funcionalidad grupo"
+            class="grupo-botones"
+          >
+            <button
+              class="boton boton-pequeño"
+              id="crear-grupo-btn"
+              disabled
+              aria-disabled="true"
+            >
+              Crear grupo
+            </button>
+            <button
+              class="boton boton-pequeño"
+              id="unir-grupo-btn"
+              disabled
+              aria-disabled="true"
+            >
+              Añadir grupo
+            </button>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="fondo-principal">
+      <p>Desarrollado por Laura Mora Mulero</p>
+    </footer>
+    <script src="./anadir.js" type="module"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./index.jsformatTitle"></script>
+  </body>
+</html>

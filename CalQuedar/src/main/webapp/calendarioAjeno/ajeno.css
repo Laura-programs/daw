@@ -123,50 +123,8 @@ main {
     border-radius: 24px 0 0 24px;
 }
 
-.pestanya {
-    width: 49%;
-    padding: 8px;
-    margin: 0;
-    font-size: 24px;
-    font-weight: bolder;
-}
-
-.selected-grupos {
-    border-radius: 24px 0 0 0;
-    background-color: white;
-    border-style: none;
-}
-
-.unselected-grupos {
-    border-radius: 24px 0;
-    background-color: #FFA86B;
-    border-style: none;
-}
-
-.selected-amigos {
-    border-radius: 0;
-    background-color: white;
-    border-style: none;
-}
-
-.unselected-amigos {
-    border-bottom-left-radius: 24px;
-    background-color: #FFA86B;
-    border-style: none;
-}
-
-.contenido-menu {
-    display: flex;
-    flex-direction: column;
-    height: max-content;
-}
-
-.lista {
-    flex-grow: 1;
-}
-
-.grupo-botones {
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
+.lateral-derecha h2 {
+    border-bottom: 5px solid var(--principal-claro);
+    text-align: center;
+    margin: 8px 0 8px 0;
 }

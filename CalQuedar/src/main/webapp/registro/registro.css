@@ -1,49 +1,55 @@
 main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #principal {
-    width: 30%;
-    height: 90%;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
-h2, a, i {
-    text-align: center;
+h2,
+a,
+i {
+  text-align: center;
 }
 
 h2 {
-    margin-bottom: 42px;
+  margin-bottom: 42px;
 }
 
 form {
-    display: flex;
-    row-gap: 16px;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .grupo-input {
-    width: 75%;
+  width: 75%;
 }
 
 label {
-    margin-bottom: 16px;
-    height: fit-content;
+  margin-bottom: 16px;
+  height: fit-content;
 }
 
-label, button, a {
-    font-size: 24px !important;
+label,
+button,
+a {
+  font-size: 24px !important;
 }
 
 a {
-    display: block;
-    margin:16px auto;
+  display: block;
+  margin: 16px auto;
 }
 
 .icono-registro {
-    font-size: 64px;
-    display: block;
-    margin: 0 auto;
+  font-size: 64px;
+  display: block;
+  margin: 0 auto;
 }
