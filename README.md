@@ -2,6 +2,12 @@
 Estre repositorio se va a utilizar para mantener un control de versiones 
 del proyecto realizado en la asignatura de Proyecto Intermodular.
 
+## Introducción
+CalQuedar es una aplicación web desarrollada con el fin de facilitar la creación de planes dentro de grupos. No busca ser una herramienta perfecta, si no un acompañamiento a una comunicación externa, facilitando encontrar los días libres de los miembros de cada grupo.
+
+## Documentación
+El repositorio está formado por la carpeta CalQuedar donde se encuentra el proyecto completo (es un monolito, por lo que backend y frontend se encuentran en la misma raíz), la carpeta docs donde está guardada toda la documentación necesaria del proyecto, desde el sql de la bbdd al documento final a entregar, y finalmente una carpeta Servers donde se encuentra el servidor Tomcat.
+
 | Proyecto intermodular | Descripción |
 |-----------------------|-------------|
 |CalQuedar | [Enlace al proyecto](https://github.com/Laura-programs/daw)|
@@ -10,21 +16,21 @@ del proyecto realizado en la asignatura de Proyecto Intermodular.
 ###Opción 1
 Configurar en mi casa un servidor web Debian con lo aprendido durante el curso, implementando
 un servidor Tomcat o Apache, pudiendo acceder a el mediante uso de NoIP
-####Pros
+#### Pros
 * Baja probabilidad de error debido a que está en mi casa
 * Aplico lo aprendido en la asignatura de Despliegue en su totalidad
 * Facilita el despliegue continuio, al tenerlo físicamente al lado
-####Contras
+#### Contras
 * Dependo de que el portátil no falle el día de la presentación
 * Los recursos son limitados
 
-###Opción 2
+### Opción 2
 Configurar el servidor en AWS, permitiendo acceso al proyecto desde cualquier sitio
-####Pros
+#### Pros
 * Mayor cantidad de recursos
 * Se aplican los contenidos aprendidos en dos asignaturas
 * Mayor seguridad al ser una aplicación de la que dependen muchas cosas
-####Contras
+#### Contras
 * Implica un mayor aprendizaje
 * No es a prueba de balas
 * Los créditos se terminarían pronto
