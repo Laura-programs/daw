@@ -26,6 +26,7 @@ addEventListener("DOMContentLoaded", function () {
           nomUsuario.setCustomValidity("Usuario o contraseña inválidos");
           contUsuario.setCustomValidity("Usuario o contraseña inválidos");
         } else {
+          sessionStorage.setItem("username", nomUsuario.value);
           formulario.submit();
         }
       })

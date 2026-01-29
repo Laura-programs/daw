@@ -1,11 +1,19 @@
 package api;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Cookie;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -67,7 +75,26 @@ public class UsuarioApi {
 		if(userLogin == null) {
 			return Response.status(Response.Status.NOT_FOUND).entity("El usuario no se ha encontrado").build();
 		}else {
+			DaoUsuarios.getInstancia().addUsuariosSesion(userLogin);
 			return Response.status(Response.Status.OK).entity("Usuario encontrado").build();
+		}
+	}
+	
+	@GET
+	@Path("/CompruebaSesion")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response pruebaJSON(@Context HttpHeaders headers, @Context HttpServletRequest peticion) {
+		List<String> usernameComprobar = headers.getRequestHeader("username");
+		if(usernameComprobar.size() > 0 && usernameComprobar != null) {
+			if(DaoUsuarios.getInstancia().usuarioLogueado(usernameComprobar.get(0).toString())) {
+				return Response.status(Response.Status.OK).entity("Usuario logueado: " + headers.getRequestHeader("username").get(0).toString() + "Y su ip es: " + peticion.getRemoteAddr()).build();
+			}else {
+				return Response.status(Response.Status.FORBIDDEN).entity("El usuario no tiene permisos").build();
+			}
+			
+		}else {
+			return Response.status(Response.Status.BAD_REQUEST).entity("Falta cabecera").build();
 		}
 	}
 }

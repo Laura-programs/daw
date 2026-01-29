@@ -22,7 +22,7 @@ GRUPO (Entrada, username, grupo)
     FK = username ---> USUARIO(username)
     FK = grupo ---> GRUPO (ID)
 
-EVENTO PERSONAL (ID, titulo, visibilidad, etiqueta, fecha, descripcion, usernameCreador, usernameParticipantes)
+EVENTO PERSONAL (ID, titulo, visibilidad, etiqueta, fechaInicio, fechaFinal, descripcion, usernameCreador, usernameParticipantes)
     PK = ID
     VNN = visibilidad, etiqueta, fecha, usernameCreador
     FK = usernameCreador ---> USUARIO(username)

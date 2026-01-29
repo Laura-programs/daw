@@ -16,7 +16,9 @@
     /*
     Paleta principal - fondos
     */
-
+    --secundario-oscuro: #FFD3B5;
+    --secundario-medio-oscuro: #FFE5C1;
+    --secundario-medio-claro: #FFECC8;
     --secundario-claro: #FFF2CE;
     /*
     Paleta secundaria
@@ -186,6 +188,10 @@ footer p {
 }
 
 /*Customización filtros/eventos*/
+.evento {
+    color: black;
+}
+
 .viaje {
     background-color: var(--amarillo-fondo);
     border-color: var(--amarillo-principal);

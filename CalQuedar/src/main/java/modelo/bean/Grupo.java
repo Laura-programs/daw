@@ -15,6 +15,7 @@ public class Grupo implements Serializable{
 	private String id;
 	private String nombre;
 	private ArrayList<Usuario> miembros;
+	private Usuario admin;
 	
 	public Grupo() {
 		super();

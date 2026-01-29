@@ -4,6 +4,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import modelo.bean.Grupo;
 import modelo.bean.UsernameExisteException;
 import modelo.bean.Usuario;
 
@@ -27,6 +28,22 @@ public class DaoUsuarios {
 	
 	private static PreparedStatement preparedStatement;
 	
+	private ArrayList<Usuario> usuariosSesion = new ArrayList<Usuario>();
+	
+	public void addUsuariosSesion(Usuario usuario) {
+		if(!usuarioLogueado(usuario.getNombre())) {
+			usuariosSesion.add(usuario);
+		}
+	}
+	
+	public ArrayList<Usuario> getUsuariosSesion() {
+		return usuariosSesion;
+	}
+
+	public void setUsuariosSesion(ArrayList<Usuario> usuariosSesion) {
+		this.usuariosSesion = usuariosSesion;
+	}
+
 	private DaoUsuarios() {
 		super();
 	}
@@ -42,6 +59,20 @@ public class DaoUsuarios {
 
         return instance;
     }
+	
+	
+	public boolean usuarioLogueado(String usuarioComprobando) {
+		boolean estaLogueado = false;
+		
+		for(Usuario usuario : usuariosSesion) {
+			if(usuario.getNombre().equals(usuarioComprobando)) {
+				estaLogueado = true;
+				break;
+			}
+		}
+		
+		return estaLogueado;
+	}
 	
 	/**
 	 * Añade un usuario a la base de datos
@@ -99,8 +130,8 @@ public class DaoUsuarios {
 	 * @return Lista de usuarios amigos
 	 */
 	
-	public ArrayList<Usuario> buscarAmigos(String username) {
-		ArrayList<Usuario> listaAmigos = null;
+	public ArrayList<Usuario> cargarAmigos(String username) {
+		ArrayList<Usuario> listaAmigos = new ArrayList<Usuario>();
 		String sql = "SELECT * FROM usuario WHERE username IN (SELECT amigo2 from amistad where amigo1 = ?)";
 		try {
 			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
@@ -120,5 +151,27 @@ public class DaoUsuarios {
 		}
 		return listaAmigos;
 		
+	}
+	
+	public ArrayList<Grupo> cargarGrupos(String username) {
+		ArrayList<Grupo> listaGrupos = new ArrayList<Grupo>();
+		String sql = "SELECT grupo.id, grupo.nombre FROM grupo LEFT JOIN miembros_grupo ON miembros_grupo.grupo = grupo.id WHERE miembros_grupo.usuario = ?";
+		try {
+			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, username);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				Grupo grupo = new Grupo();
+				grupo.setNombre(rs.getString("nombre"));
+				grupo.setId(rs.getString("id"));
+				listaGrupos.add(grupo);
+			}
+			preparedStatement.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return listaGrupos;
 	}
 }

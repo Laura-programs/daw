@@ -1,0 +1,79 @@
+@import url(styles.css);
+
+:root {
+    --fc-border-color: var(--principal-oscuro);
+}
+
+/*Calendario central*/
+
+#calendar {
+    border: 5px solid orange;
+    margin: 8px;
+    border-radius: 24px;
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+    background-color: var(--principal-oscuro);
+    margin: 0;
+    padding: 8px;
+    border-radius: 15px 15px 0 0;
+    justify-content: space-around;
+}
+
+.fc .fc-prev-button, .fc .fc-next-button {
+    background-color: transparent !important;
+    border: none;
+    color: black;
+}
+
+.fc .fc-button .fc-icon {
+    font-size: 24px;
+    padding: 0;
+    height: auto;
+    width: auto;
+}
+
+.fc .fc-col-header-cell-cushion {
+    color: black !important;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.fc .fc-daygrid-day-number  {
+    border: 2px solid var(--principal-claro);
+    background-color: var(--secundario-claro);
+    border-radius: 4px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    padding: 0;
+    margin: 4px;
+    color: black;
+    text-decoration: none;
+}
+
+.fc .fc-day-other {
+    background-color: var(--secundario-medio-claro);
+}
+
+.fc .fc-day-today {
+    background-color: var(--principal-claro) !important;
+}
+
+.fc .fc-dayGridMonth-view .fc-view .fc-daygrid {
+    border: 5px solid orange !important;
+}
+
+.fc .fc-event-title {
+    color: black;
+}
+
+/*Lista eventos lateral*/
+.fc-theme-standard .fc-list-day-cushion {
+    background-color: white;
+}
+
+.fc-theme-standard .fc-list-day-cushion a {
+    color: black;
+    text-decoration: none;
+}
