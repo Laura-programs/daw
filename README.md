@@ -2,11 +2,6 @@
 Estre repositorio se va a utilizar para mantener un control de versiones 
 del proyecto realizado en la asignatura de Proyecto Intermodular.
 
-## Introducción
-CalQuedar es una aplicación web desarrollada con el fin de facilitar la creación de planes dentro de grupos. No busca ser una herramienta perfecta, si no un acompañamiento a una comunicación externa, facilitando encontrar los días libres de los miembros de cada grupo.
-
-## Documentación
-El repositorio está formado por la carpeta CalQuedar donde se encuentra el proyecto completo (es un monolito, por lo que backend y frontend se encuentran en la misma raíz), la carpeta docs donde está guardada toda la documentación necesaria del proyecto, desde el sql de la bbdd al documento final a entregar, y finalmente una carpeta Servers donde se encuentra el servidor Tomcat.
 
 | Proyecto intermodular | Descripción |
 |-----------------------|-------------|
