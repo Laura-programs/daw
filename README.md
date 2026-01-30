@@ -2,13 +2,20 @@
 Estre repositorio se va a utilizar para mantener un control de versiones 
 del proyecto realizado en la asignatura de Proyecto Intermodular.
 
+## Introducción
+CalQuedar es una herramienta centrada en un calendario, donde el usuario puede crear distintos eventos. También permite visitar calendarios de sus amigos y grupos, y dentro de estos, crear eventos grupales si es el administrador.
+
+## Documentación
+En la carpeta CalQuedar se encuentra el código completo de la aplicación, puesto que esta es un monolito
+La carpeta Servers cuenta con el servidor Tomcat necesario para poder ejecutar el proyecto (Tomcat9)
+En docs se encuentra la documentación generada, en proceso de desarrollo, relacionada con el proyecto. También se encuentra el sql necesario para poder crear la BBDD
 
 | Proyecto intermodular | Descripción |
 |-----------------------|-------------|
 |CalQuedar | [Enlace al proyecto](https://github.com/Laura-programs/daw)|
 
 ## Plan de despliegue
-###Opción 1
+### Opción 1
 Configurar en mi casa un servidor web Debian con lo aprendido durante el curso, implementando
 un servidor Tomcat o Apache, pudiendo acceder a el mediante uso de NoIP
 #### Pros
