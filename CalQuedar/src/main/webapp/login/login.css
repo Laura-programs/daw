@@ -5,14 +5,20 @@ main {
 }
 
 #principal {
-    width: 30%;
+    padding: 24px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    overflow: auto;
 }
 
 h2, a, i {
     text-align: center;
+}
+
+.grupo-input {
+    width: auto;
+    margin: 16px;
 }
 
 form {
@@ -20,10 +26,6 @@ form {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-}
-
-.grupo-input {
-    margin: 16px 0;
 }
 
 .grupo-checkbox {

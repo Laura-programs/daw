@@ -1,10 +1,12 @@
 package api;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -68,33 +70,30 @@ public class UsuarioApi {
 	@Path("/Login")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response sendUserJSON(String jsonLogin) {
+	public Response sendUserJSON(String jsonLogin, @Context HttpServletRequest peticion) {
 		Gson gson = new Gson();
 		Usuario usuarioDTO = gson.fromJson(jsonLogin, Usuario.class);
 		Usuario userLogin = DaoUsuarios.getInstancia().buscarUsuario(usuarioDTO.getUsername(), usuarioDTO.getContrasenya());
 		if(userLogin == null) {
 			return Response.status(Response.Status.NOT_FOUND).entity("El usuario no se ha encontrado").build();
 		}else {
-			DaoUsuarios.getInstancia().addUsuariosSesion(userLogin);
+			HttpSession miSesion = peticion.getSession(true);
+			miSesion.setAttribute("username", userLogin.getUsername());
 			return Response.status(Response.Status.OK).entity("Usuario encontrado").build();
 		}
 	}
 	
 	@GET
-	@Path("/CompruebaSesion")
+	@Path("/Amigos")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response pruebaJSON(@Context HttpHeaders headers, @Context HttpServletRequest peticion) {
-		List<String> usernameComprobar = headers.getRequestHeader("username");
-		if(usernameComprobar.size() > 0 && usernameComprobar != null) {
-			if(DaoUsuarios.getInstancia().usuarioLogueado(usernameComprobar.get(0).toString())) {
-				return Response.status(Response.Status.OK).entity("Usuario logueado: " + headers.getRequestHeader("username").get(0).toString() + "Y su ip es: " + peticion.getRemoteAddr()).build();
-			}else {
-				return Response.status(Response.Status.FORBIDDEN).entity("El usuario no tiene permisos").build();
-			}
-			
-		}else {
-			return Response.status(Response.Status.BAD_REQUEST).entity("Falta cabecera").build();
+	public Response cargarAmigosJSON(@Context HttpServletRequest peticion) {
+		Gson gson = new Gson();
+		ArrayList<Usuario> listaAmigos = new ArrayList<Usuario>();
+		listaAmigos = DaoUsuarios.getInstancia().cargarAmigos((String) peticion.getSession(true).getAttribute("username"));
+		if(listaAmigos == null) {
+			return Response.status(Response.Status.NOT_FOUND).entity(new ArrayList<Usuario>()).build();
+		} else {
+			return Response.status(Response.Status.OK).entity(listaAmigos).build();
 		}
 	}
 }

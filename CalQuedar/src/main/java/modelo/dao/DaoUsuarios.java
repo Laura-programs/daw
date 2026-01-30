@@ -27,22 +27,6 @@ public class DaoUsuarios {
 	private static Statement statement;
 	
 	private static PreparedStatement preparedStatement;
-	
-	private ArrayList<Usuario> usuariosSesion = new ArrayList<Usuario>();
-	
-	public void addUsuariosSesion(Usuario usuario) {
-		if(!usuarioLogueado(usuario.getNombre())) {
-			usuariosSesion.add(usuario);
-		}
-	}
-	
-	public ArrayList<Usuario> getUsuariosSesion() {
-		return usuariosSesion;
-	}
-
-	public void setUsuariosSesion(ArrayList<Usuario> usuariosSesion) {
-		this.usuariosSesion = usuariosSesion;
-	}
 
 	private DaoUsuarios() {
 		super();
@@ -59,20 +43,6 @@ public class DaoUsuarios {
 
         return instance;
     }
-	
-	
-	public boolean usuarioLogueado(String usuarioComprobando) {
-		boolean estaLogueado = false;
-		
-		for(Usuario usuario : usuariosSesion) {
-			if(usuario.getNombre().equals(usuarioComprobando)) {
-				estaLogueado = true;
-				break;
-			}
-		}
-		
-		return estaLogueado;
-	}
 	
 	/**
 	 * Añade un usuario a la base de datos
@@ -142,7 +112,6 @@ public class DaoUsuarios {
 				Usuario usuario = new Usuario();
 				usuario.setNombre(rs.getString("nombre"));
 				usuario.setUsername(rs.getString("username"));
-				usuario.setContrasenya(rs.getString("contrasenya"));
 				listaAmigos.add(usuario);
 			}
 			preparedStatement.close();

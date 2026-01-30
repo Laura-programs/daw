@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class UserCalendarServlet
@@ -27,7 +28,13 @@ public class UserCalendarServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.sendRedirect("./calendarioPersonal/index.html");
+		HttpSession sesion = request.getSession();
+		String usernameSesionado = (String) sesion.getAttribute("username");
+		if(usernameSesionado != null && !usernameSesionado.isBlank()) {
+			response.sendRedirect("./calendarioPersonal/index.html");
+		}else {
+			response.sendRedirect("/CalQuedar/Login");
+		}
 	}
 
 	/**

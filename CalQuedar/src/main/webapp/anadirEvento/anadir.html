@@ -79,6 +79,9 @@
               </select>
               <label for="etiqueta">Etiqueta</label>
               <select name="etiqueta" id="etiqueta" class="form-select">
+                <option value="" selected hidden disabled>
+                  Selecciona etiqueta
+                </option>
                 <option value="viaje">Viaje</option>
                 <option value="dia libre">Día libre</option>
                 <option value="cita">Cita</option>
@@ -87,11 +90,18 @@
                 <option value="medico">Médico</option>
                 <option value="selfcare">Selfcare</option>
               </select>
-              <label for="fecha">Fecha y hora</label>
+              <label for="fechaInicio">Fecha y hora inicio</label>
               <input
                 type="datetime-local"
-                name="fecha"
-                id="fecha"
+                name="fechaInicio"
+                id="fechaInicio"
+                class="form-control"
+              />
+              <label for="fechaFin">Fecha y hora inicio</label>
+              <input
+                type="datetime-local"
+                name="fechaFin"
+                id="fechaFin"
                 class="form-control"
               />
             </div>
@@ -185,6 +195,5 @@
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
-    <script src="./index.jsformatTitle"></script>
   </body>
 </html>
