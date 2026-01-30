@@ -10,6 +10,11 @@ En la carpeta CalQuedar se encuentra el código completo de la aplicación, pues
 La carpeta Servers cuenta con el servidor Tomcat necesario para poder ejecutar el proyecto (Tomcat9)
 En docs se encuentra la documentación generada, en proceso de desarrollo, relacionada con el proyecto. También se encuentra el sql necesario para poder crear la BBDD
 
+## Flujo de despliegue
+### Infraestructura necesaria
+### Servicios depedientes
+### Credenciales de servicios 
+
 | Proyecto intermodular | Descripción |
 |-----------------------|-------------|
 |CalQuedar | [Enlace al proyecto](https://github.com/Laura-programs/daw)|
