@@ -45,3 +45,5 @@ Configurar el servidor en AWS, permitiendo acceso al proyecto desde cualquier si
 La opción elegida es la primera, puesto que me permite una mayor sencillez a la hora de subir los archivos necesarios,
 y no me arriesgo a quedarme sin créditos. En caso de ver que el portátil no está funcionando como servidor,
 lo implementaría en mi ordenador propio, el cual usa Arch
+
+Capítulo 5: Conceptos avanzados
