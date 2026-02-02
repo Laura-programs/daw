@@ -20,3 +20,18 @@ export function soloLetras(texto) {
     const patron = /^[A-Za-záéíóúÁÉÍÓÚñÑ]+(?: [A-Za-záéíóúÁÉÍÓÚñÑ]+)*$/;
     return patron.test(texto);
 }
+
+export function fechaYHoraToDateTime(fecha, hora) {
+    let dateTime;
+    if(hora == "") {
+        dateTime = fecha
+    }else {
+        dateTime = `${fecha}T${hora}`
+    }
+    return dateTime;
+}
+
+export function dateTimeToFechaYHora(dateTime) {
+    let fechaYHora = dateTime.split("T");
+    return fechaYHora;
+}

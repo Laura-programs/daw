@@ -42,7 +42,9 @@
             ></a>
           </li>
           <li>
-            <a href="/CalQuedar/AnadirPersonalServlet"><i class="bi bi-patch-plus icono-nav"></i></a>
+            <a href="/CalQuedar/AnadirPersonalServlet"
+              ><i class="bi bi-patch-plus icono-nav"></i
+            ></a>
           </li>
         </ul>
       </nav>
@@ -90,21 +92,28 @@
           hidden
           aria-hidden="true"
         >
-          <div aria-roledescription="Listado de amigos" id="lista-amigos"></div>
-          <button class="boton boton-pequeño boton-abajo">Añadir amigo</button>
+          <div class="grupo-botones">
+            <button class="boton boton-pequeño boton-abajo">
+              Añadir amigo
+            </button>
+          </div>
+          <div aria-roledescription="Listado de amigos" id="lista-amigos">
+            <div class="amigo">
+              <div aria-roledescription="Información amigo" class="info-amigo">
+                <i class="bi bi-emoji-wink"></i>
+              <a href="/CalQuedar/CalendarioAmigoServlet?amigo=Test_reto"
+                >Amigo jeje</a
+              >
+              </div>
+              <a href="#" class="eliminar-amigo"><i class="bi bi-person-x"></i></a>
+            </div>
+          </div>
         </div>
         <!--Menú grupos-->
         <div
           aria-roledescription="Menú lateral con listado de grupos y funcionalidad"
           class="contenido-menu contenido-menu-grupos"
         >
-          <div
-            aria-roledescription="Listado de grupos"
-            id="lista-grupos"
-            class="lista"
-          >
-        <a href="/CalQuedar/CalendarioAmigoServlet?amigo=Test_reto">Amigo jeje</a>
-        </div>
           <div
             aria-roledescription="Grupo botones funcionalidad grupo"
             class="grupo-botones"
@@ -116,19 +125,28 @@
               Añadir grupo
             </button>
           </div>
+          <div
+            aria-roledescription="Listado de grupos"
+            id="lista-grupos"
+            class="lista"
+          >
+          <div class="grupo">
+            <div class="info-grupo">
+              <i class="bi bi-people"></i>
+              <a href="/CalQuedar/CalendarioGrupoServlet?grupo=test">Grupo</a>
+            </div>
+            <a href="#"><i class="bi bi-box-arrow-right"></i></a>
+          </div>
+          </div>
         </div>
       </aside>
     </main>
 
     <!--Modales-->
 
-    <!--Modal crear grupo-->
-    <div
-      class="my-modal"
-      id="modal-crear-grupo"
-      aria-roledescription="Diálogo para crear un grupo"
-    >
-      <div class="contenido-modal">
+    <div class="my-modal" aria-roledescription="Diálogo para crear un grupo">
+      <!--Modal crear grupo-->
+      <div class="contenido-modal" id="modal-crear-grupo">
         <div class="header-modal" aria->
           <p>¡Nuevo grupo!</p>
         </div>
@@ -146,15 +164,9 @@
           </form>
         </div>
       </div>
-    </div>
 
-    <!--Modal añadir grupo-->
-    <div
-      class="my-modal"
-      id="modal-anadir-grupo"
-      aria-roledescription="Diálogo para unirse a un grupo"
-    >
-      <div class="contenido-modal">
+      <!--Modal añadir grupo-->
+      <div class="contenido-modal" id="modal-anadir-grupo">
         <div class="header-modal" aria->
           <p>Uniéndose a la pandilla</p>
         </div>

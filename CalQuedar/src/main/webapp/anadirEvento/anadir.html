@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="utf-8" />
@@ -47,10 +47,12 @@
       </nav>
     </header>
     <main>
+      <!--Menú izquierda-->
       <aside class="lateral-izquierda">
         <h2>Próximos eventos</h2>
         <div id="proximos-eventos"></div>
       </aside>
+      <!--Formulario-->
       <section class="centro">
         <div
           class="formulario shadow-lg"
@@ -59,7 +61,7 @@
           <div class="header-form">
             <h2>Nuevo evento</h2>
           </div>
-          <form action="#" id="form">
+          <form action="#" id="form" class="was-validated">
             <div class="form-izquierda">
               <label for="titulo">Título</label>
               <input
@@ -69,53 +71,89 @@
                 class="form-control"
                 placeholder="Nuevo evento"
               />
+              <div class="valid-feedback">
+                El título por defecto es "Título"
+              </div>
               <label for="visibilidad">Visibilidad</label>
-              <select name="visibilidad" id="visibilidad" class="form-select">
+              <select
+                name="visibilidad"
+                id="visibilidad"
+                class="form-select"
+                required
+              >
                 <option value="" selected hidden disabled>
                   Selecciona visibilidad
                 </option>
                 <option value="publico">Público</option>
                 <option value="privado">Privado</option>
               </select>
+              <div class="invalid-feedback">Selecciona visibilidad</div>
               <label for="etiqueta">Etiqueta</label>
-              <select name="etiqueta" id="etiqueta" class="form-select">
+              <select
+                name="etiqueta"
+                id="etiqueta"
+                class="form-select"
+                required
+              >
                 <option value="" selected hidden disabled>
                   Selecciona etiqueta
                 </option>
-                <option value="viaje">Viaje</option>
-                <option value="dia libre">Día libre</option>
-                <option value="cita">Cita</option>
-                <option value="plan grupo">Plan grupo</option>
-                <option value="misc">Misc.</option>
-                <option value="medico">Médico</option>
-                <option value="selfcare">Selfcare</option>
+                <option value="viaje" class="viaje">Viaje</option>
+                <option value="dia libre" class="dia-libre">Día libre</option>
+                <option value="cita" class="cita">Cita</option>
+                <option value="plan amigos" class="plan-grupo">
+                  Plan grupo
+                </option>
+                <option value="misc" class="misc">Misc.</option>
+                <option value="medico" class="medico">Médico</option>
+                <option value="selfcare" class="selfcare">Selfcare</option>
               </select>
+              <div class="invalid-feedback">Selecciona etiqueta</div>
               <label for="fechaInicio">Fecha y hora inicio</label>
               <input
-                type="datetime-local"
+                type="date"
                 name="fechaInicio"
                 id="fechaInicio"
                 class="form-control"
+                required
               />
-              <label for="fechaFin">Fecha y hora inicio</label>
+              <div class="invalid-feedback">Fecha de inicio necesaria</div>
               <input
-                type="datetime-local"
+                type="time"
+                name="horaInicio"
+                id="horaInicio"
+                class="form-control"
+              />
+              <div class="valid-feedback">La hora no es necesaria</div>
+              <label for="fechaFin">Fecha y hora fin</label>
+              <input
+                type="date"
                 name="fechaFin"
                 id="fechaFin"
                 class="form-control"
               />
+              <input
+                type="time"
+                name="horaFin"
+                id="horaFin"
+                class="form-control"
+              />
+              <div class="valid-feedback">
+                El evento no tiene porqué tener fecha final
+              </div>
             </div>
             <div class="form-derecha">
               <div class="textarea-derecha">
                 <label for="descripcion">Descripción</label>
-              <textarea
-                name="descripcion"
-                id="descripcion"
-                cols="30"
-                rows="10"
-                class="form-control"
-                placeholder="¿Qué tienes que hacer?"
-              ></textarea>
+                <textarea
+                  name="descripcion"
+                  id="descripcion"
+                  cols="30"
+                  rows="10"
+                  class="form-control"
+                  placeholder="¿Qué tienes que hacer?"
+                ></textarea>
+                <div class="valid-feedback">Puedes no hacer nada</div>
               </div>
               <div class="controles-form">
                 <button type="submit"><i class="bi bi-check-lg"></i></button>
@@ -142,25 +180,22 @@
           hidden
           aria-hidden="true"
         >
+          <div class="grupo-botones">
+            <button
+              class="boton boton-pequeño boton-abajo"
+              disabled
+              aria-disabled="true"
+            >
+              Añadir amigo
+            </button>
+          </div>
           <div aria-roledescription="Listado de amigos" id="lista-amigos"></div>
-          <button
-            class="boton boton-pequeño boton-abajo"
-            disabled
-            aria-disabled="true"
-          >
-            Añadir amigo
-          </button>
         </div>
         <!--Menú grupos-->
         <div
           aria-roledescription="Menú lateral con listado de grupos y funcionalidad"
           class="contenido-menu contenido-menu-grupos"
         >
-          <div
-            aria-roledescription="Listado de grupos"
-            id="lista-grupos"
-            class="lista"
-          ></div>
           <div
             aria-roledescription="Grupo botones funcionalidad grupo"
             class="grupo-botones"
@@ -182,6 +217,11 @@
               Añadir grupo
             </button>
           </div>
+          <div
+            aria-roledescription="Listado de grupos"
+            id="lista-grupos"
+            class="lista"
+          ></div>
         </div>
       </aside>
     </main>

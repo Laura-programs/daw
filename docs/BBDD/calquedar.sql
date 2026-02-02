@@ -38,7 +38,8 @@ CREATE TABLE EVENTO_PERSONAL (
 	titulo VARCHAR(100) DEFAULT 'titulo',
 	visibilidad ENUM('publico', 'privado', 'secreto'),
 	etiqueta ENUM('viaje', 'dia libre', 'cita', 'plan grupo', 'misc', 'médico', 'selfcare'),
-	fecha DATETIME,
+	fechaInicio DATETIME,
+	fechaFin DATETIME,
 	descripcion MEDIUMTEXT,
 	creador VARCHAR(36) NOT NULL,
 	FOREIGN KEY (creador) REFERENCES USUARIO(username)

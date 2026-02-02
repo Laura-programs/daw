@@ -49,6 +49,7 @@ main {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .textarea-derecha {
@@ -58,8 +59,8 @@ main {
 .controles-form {
     align-self: end;
     border: 5px solid var(--principal-oscuro);
-    padding: 8px;
     border-radius: 24px 0 17px 0;
+    bottom: 0;
 }
 
 .controles-form button {
@@ -68,7 +69,7 @@ main {
 }
 
 .controles-form i {
-    font-size: 40px;
+    font-size: 2.0833vw;
 }
 
 /*Aside izquierda*/
@@ -134,7 +135,72 @@ main {
 }
 
 .grupo-botones {
-    margin-top: auto;
+    margin-top: 8px;
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+}
+
+/*Amigos*/
+
+.amigo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: var(--secundario-claro);
+    border-left: 4px solid var(--principal-claro);
+    border-right: 4px solid var(--principal-claro);
+    border-radius: 4px;
+    margin: 4px;
+    align-items: center;
+    padding: 0 4px;
+}
+
+.amigo a {
+    color: black;
+}
+
+.info-amigo {
+    display: flex;
+    align-items: center;
+}
+
+.info-amigo i {
+    margin-right: 4px;
+}
+
+.amigo i {
+    font-size: 1.5625vw;
+}
+
+/*Grupos*/
+
+.grupo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: var(--secundario-claro);
+    border-left: 4px solid var(--principal-claro);
+    border-right: 4px solid var(--principal-claro);
+    border-radius: 4px;
+    margin: 4px;
+    align-items: center;
+    padding: 0 4px;
+}
+
+.grupo a {
+    color: black;
+}
+
+.info-grupo {
+    display: flex;
+    align-items: center;
+}
+
+.info-grupo i {
+    margin-right: 4px;
+}
+
+.grupo i {
+    font-size: 1.5625vw;
 }
