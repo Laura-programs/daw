@@ -19,7 +19,8 @@ export const calendarioLateral = document.getElementById('proximos-eventos');
 export const modalCrearGrupo = document.getElementById("modal-crear-grupo");
 export const modalAnadirGrupo = document.getElementById("modal-anadir-grupo");
 
-//Añadir evento personal
+//Evento personal
+export const id = document.getElementById("idEvento");
 export const formulario = document.getElementById("form");
 export const titulo = document.getElementById("titulo");
 export const visibilidad = document.getElementById("visibilidad");
@@ -29,3 +30,8 @@ export const horaInicio = document.getElementById("horaInicio");
 export const fechaFin = document.getElementById("fechaFin");
 export const horaFin = document.getElementById("horaFin");
 export const descripcion = document.getElementById("descripcion");
+
+//CRUD Evento Personal
+export const btnEliminar = document.getElementById("eliminar-evento");
+export const btnActualizar = document.getElementById("actualizar-evento");
+export const btnCancelar = document.getElementById("boton-cancelar");

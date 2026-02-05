@@ -38,6 +38,8 @@ import modelo.dao.DaoUsuarios;
 @Path("/User")
 public class UsuarioApi {
 	
+	Gson gson = new Gson();
+	
 	/**
 	 * Endpoint para el registro. Recibe un usuario y lo añade a la BBDD
 	 * @param userJSON
@@ -47,7 +49,7 @@ public class UsuarioApi {
 	@Path("/Registro")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response acceptUserJSON(String userJSON) {
-		Gson gson = new Gson();
+		
 		Usuario usuario = gson.fromJson(userJSON, Usuario.class);
 		try {
 			DaoUsuarios.getInstancia().anadirUsuario(usuario);
@@ -71,7 +73,6 @@ public class UsuarioApi {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response sendUserJSON(String jsonLogin, @Context HttpServletRequest peticion) {
-		Gson gson = new Gson();
 		Usuario usuarioDTO = gson.fromJson(jsonLogin, Usuario.class);
 		Usuario userLogin = DaoUsuarios.getInstancia().buscarUsuario(usuarioDTO.getUsername(), usuarioDTO.getContrasenya());
 		if(userLogin == null) {
@@ -87,7 +88,6 @@ public class UsuarioApi {
 	@Path("/Amigos")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response cargarAmigosJSON(@Context HttpServletRequest peticion) {
-		Gson gson = new Gson();
 		ArrayList<Usuario> listaAmigos = new ArrayList<Usuario>();
 		listaAmigos = DaoUsuarios.getInstancia().cargarAmigos((String) peticion.getSession(true).getAttribute("username"));
 		if(listaAmigos == null) {
@@ -95,5 +95,16 @@ public class UsuarioApi {
 		} else {
 			return Response.status(Response.Status.OK).entity(listaAmigos).build();
 		}
+	}
+	
+	@POST
+	@Path("/AnadirAmigo")
+	public Response anadirAmigo(@Context HttpServletRequest peticion, @QueryParam("amigo") String usernameAmigo) {
+		try {
+			DaoUsuarios.getInstancia().anadirAmigo((String) peticion.getSession(true).getAttribute("username"), usernameAmigo);
+		}catch (Exception exception) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(exception.getMessage()).build();
+		}
+		return Response.status(Response.Status.OK).entity("Amigo añadido").build();
 	}
 }

@@ -94,6 +94,26 @@ public class DaoUsuarios {
 		return usuario;
 	}
 	
+	public Usuario buscarUsername(String username) {
+		Usuario usuario = null;
+		String sql = "select * from usuario where username = ?";
+		try {
+			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, username);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				usuario = new Usuario();
+				usuario.setNombre(rs.getString("nombre"));
+				usuario.setUsername(rs.getString("username"));
+			}
+			preparedStatement.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return usuario;
+	}
+	
 	/**
 	 * Busca los amigos de un usuario en específico
 	 * @param username
@@ -143,4 +163,27 @@ public class DaoUsuarios {
 		
 		return listaGrupos;
 	}
+	
+	public void anadirAmigo(String username, String usernameAmigo) {
+		String sql = "INSERT INTO amistad(amigo1, amigo2) VALUES (?, ?); INSERT INTO amistad(amigo1, amigo2) VALUES(?, ?)";
+		try {
+			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, username);
+			preparedStatement.setString(2, usernameAmigo);
+			preparedStatement.setString(3, usernameAmigo);
+			preparedStatement.setString(4, username);
+			preparedStatement.executeUpdate();
+			preparedStatement.close();
+		}catch(SQLException e) {
+			System.out.println(preparedStatement.toString());
+			throw new RuntimeException();
+		}
+	}
+	
+	/*
+	 * public void crearGrupo(String nombre) { String sql =
+	 * "INSERT INTO grupo VALUES(?, ?)"; try {
+	 * 
+	 * } }
+	 */
 }

@@ -16,11 +16,10 @@ CREATE TABLE GRUPO (
 CREATE TABLE MIEMBROS_GRUPO (
 	usuario VARCHAR(36),
 	grupo CHAR(6),
-	administrador VARCHAR(36),
+	administrador TINYINT,
 	PRIMARY KEY (usuario, grupo),
 	FOREIGN KEY (usuario) REFERENCES USUARIO (username),
-	FOREIGN KEY (grupo) REFERENCES GRUPO(id),
-	FOREIGN KEY (administrador) REFERENCES USUARIO (username)
+	FOREIGN KEY (grupo) REFERENCES GRUPO(id)
 	ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -36,8 +35,8 @@ CREATE TABLE AMISTAD (
 CREATE TABLE EVENTO_PERSONAL (
 	id int AUTO_INCREMENT PRIMARY KEY,
 	titulo VARCHAR(100) DEFAULT 'titulo',
-	visibilidad ENUM('publico', 'privado', 'secreto'),
-	etiqueta ENUM('viaje', 'dia libre', 'cita', 'plan grupo', 'misc', 'médico', 'selfcare'),
+	visibilidad ENUM('publico', 'privado'),
+	etiqueta ENUM('viaje', 'dia-libre', 'cita', 'plan-grupo', 'misc', 'medico', 'selfcare'),
 	fechaInicio DATETIME,
 	fechaFin DATETIME,
 	descripcion MEDIUMTEXT,
@@ -47,6 +46,7 @@ CREATE TABLE EVENTO_PERSONAL (
 
 CREATE TABLE EVENTO_GRUPAL (
 	id int AUTO_INCREMENT PRIMARY KEY,
+	titulo VARCHAR(100),
 	planFinal TEXT,
 	fecha DATE NOT NULL,
 	grupo CHAR(6) NOT NULL,

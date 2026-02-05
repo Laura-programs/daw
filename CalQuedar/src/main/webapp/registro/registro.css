@@ -5,7 +5,7 @@ main {
 }
 
 #principal {
-  width: 30%;
+  padding: 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

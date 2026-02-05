@@ -21,7 +21,33 @@
     <header class="fondo-principal">
       <img src="../img/logo.png" alt="Logo CalQuedar" />
       <h1>CalQuedar</h1>
-      <div></div>
+      <nav hidden aria-hidden="true">
+        <ul>
+          <li>
+            <div class="dropdown">
+              <a class="dropbtn"
+                ><i class="bi bi-emoji-laughing icono-nav"></i
+              ></a>
+              <div id="miDropdown" class="dropdown-content">
+                <a href="/CalQuedar/LogOutServlet">Cerrar sesión</a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a href="#"><i class="bi bi-bell icono-nav"></i></a>
+          </li>
+          <li>
+            <a href="/CalQuedar/UserCalendarServlet"
+              ><i class="bi bi-house-door icono-nav"></i
+            ></a>
+          </li>
+          <li>
+            <a href="/CalQuedar/AnadirPersonalServlet"
+              ><i class="bi bi-patch-plus icono-nav"></i
+            ></a>
+          </li>
+        </ul>
+      </nav>
     </header>
     <main>
       <div

@@ -2,11 +2,12 @@ package modelo.bean;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 
 /**
  * @author Laura Mora
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  * Objeto Evento personal
  */
@@ -16,7 +17,8 @@ public class EventoPersonal implements Serializable{
 	private String titulo;
 	private String visibilidad;
 	private String etiqueta;
-	private Timestamp fecha;
+	private Timestamp fechaInicio;
+	private Timestamp fechaFin;
 	private String descripcion;
 	private Usuario creador;
 	public EventoPersonal() {
@@ -25,23 +27,25 @@ public class EventoPersonal implements Serializable{
 	}
 	
 	/**
-	 * Constructor con todo
-	 * @param id Clave primaria autoincremental
-	 * @param titulo Título del evento
-	 * @param visibilidad Si el evento es visible por otros usuarios o no
-	 * @param etiqueta Clasificación del evento
-	 * @param fecha Fecha del evento
+	 * Constructor completo
+	 * @param id Clave primaria
+	 * @param titulo Identificativo
+	 * @param visibilidad Privacidad
+	 * @param etiqueta Clasificatorio
+	 * @param fechaInicio Fecha de inicio, hora opcional
+	 * @param fechaFin Fecha final, opcional
 	 * @param descripcion Descripción del evento
-	 * @param creador Usuario que lo ha creado
+	 * @param creador Usuario
 	 */
-	public EventoPersonal(int id, String titulo, String visibilidad, String etiqueta, Timestamp fecha,
-			String descripcion, Usuario creador) {
+	public EventoPersonal(int id, String titulo, String visibilidad, String etiqueta, Timestamp fechaInicio,
+			Timestamp fechaFin, String descripcion, Usuario creador) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.visibilidad = visibilidad;
 		this.etiqueta = etiqueta;
-		this.fecha = fecha;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
 		this.descripcion = descripcion;
 		this.creador = creador;
 	}
@@ -69,11 +73,17 @@ public class EventoPersonal implements Serializable{
 	public void setEtiqueta(String etiqueta) {
 		this.etiqueta = etiqueta;
 	}
-	public Timestamp getFecha() {
-		return fecha;
+	public Timestamp getFechaInicio() {
+		return fechaInicio;
 	}
-	public void setFecha(Timestamp fecha) {
-		this.fecha = fecha;
+	public void setFechaInicio(Timestamp fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+	public Timestamp getFechaFin() {
+		return fechaFin;
+	}
+	public void setFechaFin(Timestamp fechaFin) {
+		this.fechaFin = fechaFin;
 	}
 	public String getDescripcion() {
 		return descripcion;
@@ -90,7 +100,8 @@ public class EventoPersonal implements Serializable{
 	@Override
 	public String toString() {
 		return "EventoPersonal [id=" + id + ", titulo=" + titulo + ", visibilidad=" + visibilidad + ", etiqueta="
-				+ etiqueta + ", fecha=" + fecha + ", descripcion=" + descripcion + ", creador=" + creador + "]";
+				+ etiqueta + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", descripcion=" + descripcion
+				+ ", creador=" + creador + "]";
 	}
 	
 	

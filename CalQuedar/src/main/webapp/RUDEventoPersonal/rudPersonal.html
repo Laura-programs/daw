@@ -2,9 +2,9 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <title>Añadiendo eventos</title>
+    <title>¿Cuál es el plan?</title>
     <link href="../styles/styles.css" rel="stylesheet" />
-    <link href="./anadir.css" rel="stylesheet" />
+    <link href="./rudPersonal.css" rel="stylesheet" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -19,7 +19,7 @@
   <body>
     <header class="fondo-principal">
       <img src="../img/logo.png" alt="Logo CalQuedar" />
-      <h1>¡Buenos días!</h1>
+      <h1>Viendo evento</h1>
       <nav>
         <ul>
           <li>
@@ -36,12 +36,14 @@
             <a href="#"><i class="bi bi-bell icono-nav"></i></a>
           </li>
           <li>
-            <a href="/CalQuedar/Login"
+            <a href="/CalQuedar/UserCalendarServlet"
               ><i class="bi bi-house-door icono-nav"></i
             ></a>
           </li>
           <li>
-            <a href="#"><i class="bi bi-patch-plus icono-nav"></i></a>
+            <a href="/CalQuedar/AnadirPersonalServlet"
+              ><i class="bi bi-patch-plus icono-nav"></i
+            ></a>
           </li>
         </ul>
       </nav>
@@ -61,7 +63,13 @@
           <div class="header-form">
             <h2>Nuevo evento</h2>
           </div>
-          <form action="#" id="form" class="was-validated">
+          <form
+            id="form"
+            class="was-validated"
+            method="post"
+            action=""
+          >
+            <input type="hidden" name="idEvento" id="idEvento" value="" />
             <div class="form-izquierda">
               <label for="titulo">Título</label>
               <input
@@ -99,9 +107,9 @@
                   Selecciona etiqueta
                 </option>
                 <option value="viaje" class="viaje">Viaje</option>
-                <option value="dia libre" class="dia-libre">Día libre</option>
+                <option value="dia-libre" class="dia-libre">Día libre</option>
                 <option value="cita" class="cita">Cita</option>
-                <option value="plan amigos" class="plan-grupo">
+                <option value="plan-grupo" class="plan-grupo">
                   Plan grupo
                 </option>
                 <option value="misc" class="misc">Misc.</option>
@@ -111,32 +119,23 @@
               <div class="invalid-feedback">Selecciona etiqueta</div>
               <label for="fechaInicio">Fecha y hora inicio</label>
               <input
-                type="date"
+                type="datetime-local"
                 name="fechaInicio"
-                id="fechaInicio"
                 class="form-control"
+                id="fechaInicio"
                 required
               />
-              <div class="invalid-feedback">Fecha de inicio necesaria</div>
-              <input
-                type="time"
-                name="horaInicio"
-                id="horaInicio"
-                class="form-control"
-              />
+              <div class="invalid-feedback">
+                Fecha de inicio necesaria. Si no sabes que hora poner, ¡pon las
+                00:00!
+              </div>
               <div class="valid-feedback">La hora no es necesaria</div>
               <label for="fechaFin">Fecha y hora fin</label>
               <input
-                type="date"
+                type="datetime-local"
                 name="fechaFin"
+                class="form-control"
                 id="fechaFin"
-                class="form-control"
-              />
-              <input
-                type="time"
-                name="horaFin"
-                id="horaFin"
-                class="form-control"
               />
               <div class="valid-feedback">
                 El evento no tiene porqué tener fecha final
@@ -156,8 +155,13 @@
                 <div class="valid-feedback">Puedes no hacer nada</div>
               </div>
               <div class="controles-form">
-                <button type="submit"><i class="bi bi-check-lg"></i></button>
-                <button type="reset"><i class="bi bi-x-lg"></i></button>
+                <button id="eliminar-evento" type="button">
+                  <i class="bi bi-trash"></i>
+                </button>
+                <button id="actualizar-evento" type="button">
+                  <i class="bi bi-floppy"></i>
+                </button>
+                <button id="boton-cancelar" type="submit"><i class="bi bi-x-lg"></i></button>
               </div>
             </div>
           </form>
@@ -229,7 +233,7 @@
     <footer class="fondo-principal">
       <p>Desarrollado por Laura Mora Mulero</p>
     </footer>
-    <script src="./anadir.js" type="module"></script>
+    <script src="./rudPersonal.js" type="module"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"

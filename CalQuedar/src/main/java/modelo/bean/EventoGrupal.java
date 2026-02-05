@@ -15,8 +15,9 @@ import java.util.ArrayList;
 @SuppressWarnings("serial")
 public class EventoGrupal implements Serializable{
 	private int id;
+	private String titulo;
 	private String planFinal;
-	private Timestamp fecha;
+	private String fecha;
 	private Grupo grupo;
 	private ArrayList<Usuario> participantes;
 	private ArrayList<String> sugerencias;
@@ -29,6 +30,7 @@ public class EventoGrupal implements Serializable{
 	/**
 	 * Constructor completo
 	 * @param id Clave primaria autoincremental del event
+	 * @param titulo Identificativo
 	 * @param planFinal Plan elegido
 	 * @param fecha Fecha del evento
 	 * @param grupo  Grupo al que pertenece el evento
@@ -36,9 +38,10 @@ public class EventoGrupal implements Serializable{
 	 * @param sugerencias Lista de las sugerencias de los participantes
 	 */
 
-	public EventoGrupal(int id, String planFinal, Timestamp fecha, Grupo grupo, ArrayList<Usuario> participantes,
+	public EventoGrupal(int id, String titulo, String planFinal, String fecha, Grupo grupo, ArrayList<Usuario> participantes,
 			ArrayList<String> sugerencias) {
 		this.id = id;
+		this.titulo = titulo;
 		this.planFinal = planFinal;
 		this.fecha = fecha;
 		this.grupo = grupo;
@@ -54,6 +57,14 @@ public class EventoGrupal implements Serializable{
 		this.id = id;
 	}
 
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
 	public String getPlanFinal() {
 		return planFinal;
 	}
@@ -62,11 +73,11 @@ public class EventoGrupal implements Serializable{
 		this.planFinal = planFinal;
 	}
 
-	public Timestamp getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Timestamp fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 
