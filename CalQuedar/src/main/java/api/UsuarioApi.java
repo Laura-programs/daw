@@ -21,13 +21,14 @@ import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 
+import modelo.bean.AmigoAnadidoException;
 import modelo.bean.UsernameExisteException;
 import modelo.bean.Usuario;
 import modelo.dao.DaoUsuarios;
 
 /**
  * @author Laura Mora Mulero
- * @version 1.0
+ * @version 1.2
  * @since 1.0
  */
 
@@ -102,9 +103,33 @@ public class UsuarioApi {
 	public Response anadirAmigo(@Context HttpServletRequest peticion, @QueryParam("amigo") String usernameAmigo) {
 		try {
 			DaoUsuarios.getInstancia().anadirAmigo((String) peticion.getSession(true).getAttribute("username"), usernameAmigo);
+		}catch(AmigoAnadidoException exception) {
+			return Response.status(Response.Status.CONFLICT).entity(exception.getMessage()).build();
 		}catch (Exception exception) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(exception.getMessage()).build();
 		}
 		return Response.status(Response.Status.OK).entity("Amigo añadido").build();
+	}
+	
+	@GET
+	@Path("/InfoAmigo")
+	public Response infoAmigoJSON(@QueryParam("amigo") String username) {
+		Usuario usuario = DaoUsuarios.getInstancia().buscarUsername(username);
+		if (usuario == null) {
+			return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado").build();
+		}else {
+			return Response.status(Response.Status.OK).entity(usuario).build();
+		}
+	}
+	
+	@GET
+	@Path("/EliminarAmigo")
+	public Response eliminarAmigo(@Context HttpServletRequest peticion, @QueryParam("amigo") String usernameAmigo) {
+		try {
+			DaoUsuarios.getInstancia().eliminarAmigo((String) peticion.getSession(true).getAttribute("username"), usernameAmigo);
+		} catch (Exception exception) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(exception.getMessage()).build();
+		}
+		return Response.status(Response.Status.OK).entity("Amigo eliminado").build();
 	}
 }

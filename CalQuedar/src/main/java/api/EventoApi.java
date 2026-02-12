@@ -60,12 +60,12 @@ public class EventoApi {
 	@GET
 	@Path("/Cargar/Ajenos")
 	public Response cargarEventosAjenosJSON(@QueryParam("amigo") String username) {
-		EventosRespuesta todosEventos = new EventosRespuesta();
-		todosEventos.setEventosPersonales(DaoEventos.getInstancia().cargarEventosPersonalesAjenos(username));
-		if(todosEventos.getEventosGrupales() == null && todosEventos.getEventosPersonales() == null) {
-			return Response.status(Response.Status.NOT_FOUND).entity(new EventosRespuesta()).build();
+		ArrayList<EventoPersonal> listaEventos = null;
+		listaEventos = DaoEventos.getInstancia().cargarEventosPersonalesAjenos(username);
+		if(listaEventos.isEmpty() || listaEventos == null) {
+			return Response.status(Response.Status.NOT_FOUND).entity(listaEventos = new ArrayList<EventoPersonal>()).build();
 		}else {
-			return Response.status(Response.Status.OK).entity(todosEventos).build();
+			return Response.status(Response.Status.OK).entity(listaEventos).build();
 		}
 	}
 	
@@ -101,6 +101,6 @@ public class EventoApi {
 		}catch (Exception exception) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(exception.getMessage()).build();
 		}
-		return Response.status(Response.Status.OK).entity("Evento eliminado :3").build();
+		return Response.status(Response.Status.OK).entity("Evento eliminado").build();
 	}
 }

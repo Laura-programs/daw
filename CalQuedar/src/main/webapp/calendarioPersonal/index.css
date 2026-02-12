@@ -120,6 +120,12 @@ main {
     font-size: 1.5625vw;
 }
 
+.eliminar-amigo {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
 /*Grupos*/
 
 .grupo {

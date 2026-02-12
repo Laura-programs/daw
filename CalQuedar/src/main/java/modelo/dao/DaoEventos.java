@@ -258,7 +258,7 @@ public class DaoEventos {
 		try {
 			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
 			preparedStatement.setString(1, usuario);
-			ResultSet rs = preparedStatement.executeQuery(sql);
+			ResultSet rs = preparedStatement.executeQuery();
 			
 			while (rs.next()) {
 				EventoGrupal evento = new EventoGrupal();

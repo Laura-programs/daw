@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author Laura Mora
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  * Objeto usuario
  */
@@ -14,6 +14,7 @@ public class Usuario implements Serializable {
 	private String username;
 	private String nombre;
 	private String contrasenya;
+	private boolean admin;
 	
 	public Usuario() {
 		super();
@@ -27,10 +28,11 @@ public class Usuario implements Serializable {
 	 * @param contrasenya Contraseña segura
 	 */
 
-	public Usuario(String username, String nombre, String contrasenya) {
+	public Usuario(String username, String nombre, String contrasenya, boolean admin) {
 		this.username = username;
 		this.nombre = nombre;
 		this.contrasenya = contrasenya;
+		this.admin = admin;
 	}
 	
 	public Usuario(String username, String contrasenya) {
@@ -63,10 +65,18 @@ public class Usuario implements Serializable {
 		this.contrasenya = contrasenya;
 	}
 
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
 	@Override
 	public String toString() {
-		return "Usuario [username=" + username + ", nombre=" + nombre + ", contrasenya=" + contrasenya + "]";
+		return "Usuario [username=" + username + ", nombre=" + nombre + ", contrasenya=" + contrasenya + ", admin="
+				+ admin + "]";
 	}
-	
 	
 }

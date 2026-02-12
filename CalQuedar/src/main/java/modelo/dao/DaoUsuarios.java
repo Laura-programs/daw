@@ -4,6 +4,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import modelo.bean.AmigoAnadidoException;
 import modelo.bean.Grupo;
 import modelo.bean.UsernameExisteException;
 import modelo.bean.Usuario;
@@ -16,7 +17,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
  * @author Laura Mora
- * @version 1.0
+ * @version 1.2
  * @since 1.0
  */
 public class DaoUsuarios {
@@ -50,7 +51,7 @@ public class DaoUsuarios {
 	 */
 	
 	public void anadirUsuario(Usuario usuario) {
-		String sql = "INSERT INTO usuario values (?,?,?)";
+		String sql = "INSERT INTO usuario values (?,?,?,0)";
 		try {
     		preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
     	    preparedStatement.setString(1, usuario.getUsername());				        	  
@@ -61,6 +62,8 @@ public class DaoUsuarios {
 		} catch (SQLIntegrityConstraintViolationException e) {
 			throw new UsernameExisteException("El username ya está en uso");
 		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(preparedStatement);
 			throw new RuntimeException();
 		}
 	}
@@ -122,10 +125,11 @@ public class DaoUsuarios {
 	
 	public ArrayList<Usuario> cargarAmigos(String username) {
 		ArrayList<Usuario> listaAmigos = new ArrayList<Usuario>();
-		String sql = "SELECT * FROM usuario WHERE username IN (SELECT amigo2 from amistad where amigo1 = ?)";
+		String sql = "SELECT u.* FROM usuario u JOIN amistad a ON (u.username = a.amigo1 OR u.username = a.amigo2) WHERE ? IN (a.amigo1, a.amigo2) AND u.username <> ?";
 		try {
 			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
 			preparedStatement.setString(1, username);
+			preparedStatement.setString(2, username);
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while(rs.next()) {
@@ -165,25 +169,38 @@ public class DaoUsuarios {
 	}
 	
 	public void anadirAmigo(String username, String usernameAmigo) {
-		String sql = "INSERT INTO amistad(amigo1, amigo2) VALUES (?, ?); INSERT INTO amistad(amigo1, amigo2) VALUES(?, ?)";
+		String sql = "INSERT INTO amistad VALUES (?, ?);";
 		try {
 			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
 			preparedStatement.setString(1, username);
 			preparedStatement.setString(2, usernameAmigo);
-			preparedStatement.setString(3, usernameAmigo);
-			preparedStatement.setString(4, username);
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
+		}catch(SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+			System.out.println(preparedStatement.toString());
+			throw new AmigoAnadidoException("Usuario ya se encuentra en la lista de amigos");
 		}catch(SQLException e) {
+			e.printStackTrace();
 			System.out.println(preparedStatement.toString());
 			throw new RuntimeException();
 		}
 	}
 	
-	/*
-	 * public void crearGrupo(String nombre) { String sql =
-	 * "INSERT INTO grupo VALUES(?, ?)"; try {
-	 * 
-	 * } }
-	 */
+	public void eliminarAmigo(String username, String amigo) {
+		String sql = "DELETE FROM amistad WHERE (`amistad`.`amigo1` = ? AND `amistad`.`amigo2` = ?) OR (`amistad`.`amigo1` = ? AND `amistad`.`amigo2` = ?)";
+		try {
+			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, username);
+			preparedStatement.setString(2, amigo);
+			preparedStatement.setString(3, amigo);
+			preparedStatement.setString(4, username);
+			preparedStatement.executeUpdate();
+			preparedStatement.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println(preparedStatement.toString());
+			throw new RuntimeException();
+		}
+	}
 }

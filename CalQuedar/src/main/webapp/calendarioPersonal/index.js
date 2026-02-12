@@ -1,4 +1,4 @@
-import { procesarEventos } from "../script/funciones.js";
+import { procesarEventosSet } from "../script/funciones.js";
 
 import {
   btnDropDown,
@@ -11,7 +11,13 @@ import {
   selectorGrupos,
   contenidoAmigos,
   contenidoGrupos,
-  modalIndex,
+  modalCrearGrupo,
+  modalAnadirGrupo,
+  anadirAmigoBtn,
+  modalAnadirAmigo,
+  formAnadirAmigo,
+  nombreAmigo,
+  listaAmigos,
 } from "../script/selectores.js";
 
 async function cargarAmigos() {
@@ -22,19 +28,32 @@ async function cargarEventos() {
   return fetch("http://localhost:8080/CalQuedar/rest/Evento/Cargar/Propios");
 }
 
+async function anadirAmigo(amigo) {
+  return fetch(
+    `http://localhost:8080/CalQuedar/rest/User/AnadirAmigo?amigo=${amigo}`,
+    {
+      method: "POST",
+    },
+  );
+}
+
+async function eliminaAmigoFetch(amigo) {
+  return fetch(
+    `http://localhost:8080/CalQuedar/rest/User/EliminarAmigo?amigo=${amigo}`,
+  );
+}
+
 let listaEventosCalendario = [];
-let listaAmigos = [];
-let listaGrupos = [];
 
 document.addEventListener("DOMContentLoaded", function () {
   cargarAmigos()
     .then((listaAmigos) => listaAmigos.json())
-    .then((datos) => console.log(datos));
+    .then((datos) => pintaAmigos(datos));
 
   cargarEventos()
     .then((listaEventos) => listaEventos.json())
     .then((datos) => {
-      listaEventosCalendario = procesarEventos(datos);
+      listaEventosCalendario = procesarEventosSet(datos);
       const mainCalendar = new FullCalendar.Calendar(calendarioCentral, {
         locale: "es",
         initialView: "dayGridMonth",
@@ -71,12 +90,72 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+function pintaAmigos(amigos) {
+  amigos.forEach((amigo) => {
+    let divAmigo = document.createElement("div");
+    divAmigo.innerHTML = `<div aria-roledescription="Información amigo" class="info-amigo">
+                <i class="bi bi-emoji-wink"></i>
+                <a href="/CalQuedar/CalendarioAmigoServlet?amigo=${amigo.username}"
+                  >${amigo.nombre}</a
+                >
+              </div>
+              <button class="eliminar-amigo" onclick="eliminaAmigo(${amigo.username})"><i class="bi bi-person-x"></i
+              ></button>`;
+    divAmigo.classList.add("amigo");
+    listaAmigos.appendChild(divAmigo);
+  });
+}
+
+export function eliminaAmigo(amigo) {
+  eliminaAmigoFetch(amigo).then((respuesta) => {
+    if (respuesta.status == 500) {
+      alert("Ha habido un problema");
+    }
+  });
+}
+
 btnDropDown.addEventListener("click", function () {
   dropDownLogOut.classList.toggle("muestra");
 });
 
 crearGrupoBtn.addEventListener("click", function () {
-  modalIndex.style.display = "block";
+  modalCrearGrupo.style.display = "block";
+});
+
+unirGrupoBtn.addEventListener("click", function () {
+  modalAnadirGrupo.style.display = "block";
+});
+
+anadirAmigoBtn.addEventListener("click", function () {
+  modalAnadirAmigo.style.display = "block";
+});
+
+window.addEventListener("click", function (event) {
+  if (event.target == modalCrearGrupo) {
+    modalCrearGrupo.style.display = "none";
+  } else if (event.target == modalAnadirGrupo) {
+    modalAnadirGrupo.style.display = "none";
+  } else if (event.target == modalAnadirAmigo) {
+    modalAnadirAmigo.style.display = "none";
+  }
+});
+
+formAnadirAmigo.addEventListener("submit", function (event) {
+  event.preventDefault();
+  if (!formAnadirAmigo.checkValidity()) {
+    event.preventDefault();
+    event.stopPropagation();
+  } else {
+    anadirAmigo(nombreAmigo.value).then((respuesta) => {
+      if (respuesta.ok) {
+        modalAnadirAmigo.style.display = "none";
+      } else if (respuesta.status == 409) {
+        alert("El usuario ya se encuentra en la lista de amigos");
+      } else {
+        alert("Ha habido un error");
+      }
+    });
+  }
 });
 
 selectorAmigos.addEventListener("click", () => {
@@ -98,5 +177,3 @@ selectorGrupos.addEventListener("click", function () {
   contenidoGrupos.hidden = false;
   contenidoGrupos.ariaHidden = false;
 });
-
-// https://www.youtube.com/watch?v=H-5LOvht5hQ

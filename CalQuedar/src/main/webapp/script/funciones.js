@@ -48,6 +48,78 @@ export function BBDDToDatePicker(fecha) {
     }
 }
 
+function ColorLuminance(hex) {
+
+	// validate hex string
+	hex = String(hex).replace(/[^0-9a-f]/gi, '');
+	if (hex.length < 6) {
+		hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+	}
+	lum = 0.5;
+
+	// convert to decimal and change luminosity
+	var rgb = "#", c, i;
+	for (i = 0; i < 3; i++) {
+		c = parseInt(hex.substr(i*2,2), 16);
+		c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+		rgb += ("00"+c).substr(c.length);
+	}
+
+	return rgb;
+}
+
+function getContrastYIQ(hexcolor){
+	var r = parseInt(hexcolor.substr(0,2),16);
+	var g = parseInt(hexcolor.substr(2,2),16);
+	var b = parseInt(hexcolor.substr(4,2),16);
+	var yiq = ((r*299)+(g*587)+(b*114))/1000;
+	return (yiq >= 128) ? 'black' : 'white';
+}
+
+const hex = {
+    '0': '0',
+    '1': '1',
+    '2': '2',
+    '3': '3',
+    '4': '4',
+    '5': '5',
+    '6': '6',
+    '7': '6',
+    '8': '8',
+    '9': '9', 
+    '10': 'A', 
+    '11': 'B', 
+    '12': 'C', 
+    '13': 'D', 
+    '14': 'E',
+    '15': 'F'
+}
+
+function rgbToHex(rgb){
+    let rgbColor = rgb.split(', ')
+    let hexResult = '#'
+    let values = Object.values(hex)
+
+    rgbColor.forEach(element => {
+        console.log(element)
+        if (values.includes(element)){
+            console.log(element)
+            hexResult += element + element
+        } else {
+            let number = Number(element)/16;
+            console.log(number)
+            let firstDig = String(number).slice(0,2).replace('.', '');
+            console.log(firstDig)
+            let secondDig = String(((number - Number(firstDig))*16));
+            console.log(secondDig)
+            hexResult += hex[firstDig]
+            hexResult += hex[secondDig]
+        }
+    });
+
+    return hexResult;
+}
+
 export function switchBackgroundColor(filtro) {
     let colorFondo;
     switch(filtro) {
@@ -106,7 +178,7 @@ export function switchBorderColor(filtro) {
     return colorBorde;
 }
 
-export function procesarEventos(eventosRespuesta) {
+export function procesarEventosSet(eventosRespuesta) {
     let listaEventos = [];
     let {
         eventosPersonales,
@@ -122,11 +194,46 @@ export function procesarEventos(eventosRespuesta) {
             `/CalQuedar/RUDEventoPersonalServlet?id=${eventoPersonal.id}`,
             false,
             switchBackgroundColor(eventoPersonal.etiqueta),
-            switchBorderColor(eventoPersonal.etiqueta)
+            switchBorderColor(eventoPersonal.etiqueta),
+            'white'
         )
         listaEventos.push(evento)
     });
 
+    eventosGrupales.forEach(eventoGrupal => {
+        let evento = new EventoCalendarioDTO (
+            eventoGrupal.id,
+            BBDDtoDateToISO(eventoGrupal.fechaInicio),
+            '',
+            eventoGrupal.titulo,
+            '',
+            true,
+            ColorLuminance(eventoGrupal.grupo),
+            `#${eventoGrupal.grupo}`,
+            getContrastYIQ(rgbToHex(ColorLuminance(eventoGrupal.grupo)))
+        )
+        listaEventos.push(evento)
+    })
+
     return listaEventos;
 }
 
+export function procesarEventosAjenos(eventosRespuesta) {
+    let listaEventos = [];
+    eventosRespuesta.forEach(eventoFetch => {
+        let evento = new EventoCalendarioDTO(
+            eventoFetch.id,
+            BBDDtoDateToISO(eventoFetch.fechaInicio),
+            BBDDtoDateToISO(eventoFetch.fechaFin),
+            eventoFetch.titulo,
+            "",
+            false,
+            switchBackgroundColor(eventoFetch.etiqueta),
+            switchBorderColor(eventoFetch.etiqueta),
+            getContrastYIQ()
+        )
+        listaEventos.push(evento);
+    });
+
+    return listaEventos;
+}

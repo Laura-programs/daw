@@ -93,7 +93,7 @@
           aria-hidden="true"
         >
           <div class="grupo-botones">
-            <button class="boton boton-pequeño boton-abajo">
+            <button class="boton boton-pequeño" id="anadir-amigo-btn">
               Añadir amigo
             </button>
           </div>
@@ -101,11 +101,12 @@
             <div class="amigo">
               <div aria-roledescription="Información amigo" class="info-amigo">
                 <i class="bi bi-emoji-wink"></i>
-              <a href="/CalQuedar/CalendarioAmigoServlet?amigo=Test_reto"
-                >Amigo jeje</a
-              >
+                <a href="/CalQuedar/CalendarioAmigoServlet?amigo=Test_reto"
+                  >Amigo jeje</a
+                >
               </div>
-              <a href="#" class="eliminar-amigo"><i class="bi bi-person-x"></i></a>
+              <button class="eliminar-amigo" onclick="eliminaAmigo()"><i class="bi bi-person-x"></i
+              ></button>
             </div>
           </div>
         </div>
@@ -118,10 +119,10 @@
             aria-roledescription="Grupo botones funcionalidad grupo"
             class="grupo-botones"
           >
-            <button class="boton boton-pequeño" id="crear-grupo-btn">
+            <button class="boton boton-pequeño" id="crear-grupo-btn" aria-haspopup="true">
               Crear grupo
             </button>
-            <button class="boton boton-pequeño" id="unir-grupo-btn">
+            <button class="boton boton-pequeño" id="unir-grupo-btn" aria-haspopup="true">
               Añadir grupo
             </button>
           </div>
@@ -130,13 +131,13 @@
             id="lista-grupos"
             class="lista"
           >
-          <div class="grupo">
-            <div class="info-grupo">
-              <i class="bi bi-people"></i>
-              <a href="/CalQuedar/CalendarioGrupoServlet?grupo=test">Grupo</a>
+            <div class="grupo">
+              <div class="info-grupo">
+                <i class="bi bi-people"></i>
+                <a href="/CalQuedar/CalendarioGrupoServlet?grupo=test">Grupo</a>
+              </div>
+              <a href="#"><i class="bi bi-box-arrow-right"></i></a>
             </div>
-            <a href="#"><i class="bi bi-box-arrow-right"></i></a>
-          </div>
           </div>
         </div>
       </aside>
@@ -144,9 +145,13 @@
 
     <!--Modales-->
 
-    <div class="my-modal" aria-roledescription="Diálogo para crear un grupo">
-      <!--Modal crear grupo-->
-      <div class="contenido-modal" id="modal-crear-grupo">
+    <!--Modal crear grupo-->
+    <div
+      class="my-modal"
+      id="modal-crear-grupo"
+      aria-roledescription="Diálogo para crear un grupo"
+    >
+      <div class="contenido-modal">
         <div class="header-modal" aria->
           <p>¡Nuevo grupo!</p>
         </div>
@@ -164,9 +169,14 @@
           </form>
         </div>
       </div>
-
-      <!--Modal añadir grupo-->
-      <div class="contenido-modal" id="modal-anadir-grupo">
+    </div>
+    <!--Modal añadir grupo-->
+    <div
+      class="my-modal"
+      id="modal-anadir-grupo"
+      aria-roledescription="Diálogo para unirse a un grupo"
+    >
+      <div class="contenido-modal">
         <div class="header-modal" aria->
           <p>Uniéndose a la pandilla</p>
         </div>
@@ -184,6 +194,42 @@
               type="submit"
               class="boton boton-pequeño"
               id="crear-grupo-btn"
+            >
+              Unirse
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!--Modal añadir amigo-->
+
+    <div
+      class="my-modal"
+      id="modal-anadir-amigo"
+      aria-roledescription="Diálogo para añadir un amigo"
+    >
+      <div class="contenido-modal">
+        <div class="header-modal" aria->
+          <p>¡Nuevo amigo!</p>
+        </div>
+        <div class="cuerpo-modal">
+          <form action="#"
+          id="form-anadir-amigo"
+          novalidate>
+            <label for="group-name">Escribe el username</label>
+            <input
+              type="text"
+              name="group-name"
+              id="friend-name"
+              class="form-control"
+              placeholder="jane_doe"
+              required
+            />
+            <div class="invalid-feedback">No se encuentra el usuario</div>
+            <button
+              type="submit"
+              class="boton boton-pequeño"
             >
               Unirse
             </button>
