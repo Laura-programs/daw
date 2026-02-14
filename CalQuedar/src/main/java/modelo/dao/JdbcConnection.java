@@ -19,8 +19,8 @@ public class JdbcConnection {
 	 */
 	public static Connection getConnection() {
 		String db = "CALQUEDAR";
-		String user = "root";
-		String pass = "";
+		String user = "gestor";
+		String pass = "IiT19fb7khNWzU";
 //		String url = "jdbc:mysql://localhost:3306/" + db;
 		String url = System.getenv("JDBC_URL");
 		
