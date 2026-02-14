@@ -1,0 +1,35 @@
+version: “3”
+services:
+    db:
+        image: mysql:latest
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: yes
+            MYSQL_ROOT_PASSWORD: ""
+            MYSQL_DATABASE: CALQUEDAR
+            MYSQL_PASSWORD: ""
+        ports:
+            - 3307:3306
+        volumes:
+            - ./db:/docker-entrypoint-initdb.d
+        networks:
+            - mynetwork
+        restart: always
+
+    web:
+        image: tomcat:9.0
+        environment:
+            JDBC_URL: jdbc:mysql://db:3306/CALQUEDAR?connectTimeout=0&socketTimeout=0&autoReconnect=true
+            JDBC_USER: root
+            JDBC_PASS: ""
+        ports:
+            - 8080:8080
+        volumes:
+            - ./tomcat/webapps:/usr/local/tomcat/webapps
+        networks:
+            - mynetwork
+        depends_on:
+            - db
+        restart: always
+
+networks:
+    mynetwork:

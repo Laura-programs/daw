@@ -13,4 +13,13 @@
         <servlet-name>JerseyREST</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>controlador.UserCalendarServlet</servlet-class>
+    </servlet>
+	<welcome-file-list>
+    	<welcome-file>Login</welcome-file>
+	</welcome-file-list>
 </web-app>

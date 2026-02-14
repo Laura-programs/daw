@@ -132,4 +132,11 @@ public class UsuarioApi {
 		}
 		return Response.status(Response.Status.OK).entity("Amigo eliminado").build();
 	}
+	
+	/*
+	 * @POST
+	 * 
+	 * @Path("/AnadirGrupo") public Response anadirGrupo((@Context
+	 * HttpServletRequest peticion, @QueryParam("grupo") String grupo)
+	 */
 }

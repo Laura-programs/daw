@@ -13,6 +13,9 @@ export const contenidoAmigos = document.querySelector(".contenido-menu-amigos");
 export const contenidoGrupos = document.querySelector(".contenido-menu-grupos");
 export const listaAmigos = document.getElementById("lista-amigos");
 
+//Menú lateral derecho
+export const contenedorAmigos = document.getElementById("lista-amigos");
+
 //Calendario
 export const calendarioCentral = document.getElementById('calendar');
 export const calendarioLateral = document.getElementById('proximos-eventos');
@@ -20,6 +23,7 @@ export const calendarioLateral = document.getElementById('proximos-eventos');
 //Modales
 export const modalCrearGrupo = document.getElementById("modal-crear-grupo");
 export const modalAnadirGrupo = document.getElementById("modal-anadir-grupo");
+export const formAnadirGrupo = document.getElementById("form-anadir-grupo");
 export const formAnadirAmigo = document.getElementById("form-anadir-amigo");
 export const nombreAmigo = document.getElementById("friend-name");
 export const modalAnadirAmigo = document.getElementById("modal-anadir-amigo");

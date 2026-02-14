@@ -18,6 +18,8 @@ import {
   formAnadirAmigo,
   nombreAmigo,
   listaAmigos,
+  formAnadirGrupo,
+  contenedorAmigos,
 } from "../script/selectores.js";
 
 async function cargarAmigos() {
@@ -42,6 +44,8 @@ async function eliminaAmigoFetch(amigo) {
     `http://localhost:8080/CalQuedar/rest/User/EliminarAmigo?amigo=${amigo}`,
   );
 }
+
+async function anadirGrupo(grupo) {}
 
 let listaEventosCalendario = [];
 
@@ -90,6 +94,25 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+contenedorAmigos.addEventListener("click", function (event) {
+  if (event.target.classList.contains("eliminar-amigo")) {
+    const username = event.target.dataset.id;
+    eliminaAmigoFetch(username).then((respuesta) => {
+      if (respuesta.status == 500) {
+        alert("Ha habido un problema");
+      }
+    });
+  }
+});
+
+/* export function eliminaAmigo(amigo) {
+  eliminaAmigoFetch(amigo).then((respuesta) => {
+    if (respuesta.status == 500) {
+      alert("Ha habido un problema");
+    }
+  });
+} */
+
 function pintaAmigos(amigos) {
   amigos.forEach((amigo) => {
     let divAmigo = document.createElement("div");
@@ -99,19 +122,12 @@ function pintaAmigos(amigos) {
                   >${amigo.nombre}</a
                 >
               </div>
-              <button class="eliminar-amigo" onclick="eliminaAmigo(${amigo.username})"><i class="bi bi-person-x"></i
+              <button class="eliminar-amigo" data-id='${amigo.username}'><i class="bi bi-person-x"></i
               ></button>`;
     divAmigo.classList.add("amigo");
     listaAmigos.appendChild(divAmigo);
   });
-}
-
-export function eliminaAmigo(amigo) {
-  eliminaAmigoFetch(amigo).then((respuesta) => {
-    if (respuesta.status == 500) {
-      alert("Ha habido un problema");
-    }
-  });
+  debugger;
 }
 
 btnDropDown.addEventListener("click", function () {
@@ -156,6 +172,10 @@ formAnadirAmigo.addEventListener("submit", function (event) {
       }
     });
   }
+});
+
+formAnadirGrupo.addEventListener("submit", function (event) {
+  event.preventDefault();
 });
 
 selectorAmigos.addEventListener("click", () => {
