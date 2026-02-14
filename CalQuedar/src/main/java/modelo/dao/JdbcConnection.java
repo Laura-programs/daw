@@ -21,8 +21,8 @@ public class JdbcConnection {
 		String db = "CALQUEDAR";
 		String user = "root";
 		String pass = "";
-		String url = "jdbc:mysql://localhost:3306/" + db;
-//		String url = System.getenv("JDBC_URL");
+//		String url = "jdbc:mysql://localhost:3306/" + db;
+		String url = System.getenv("JDBC_URL");
 		
 		try {
 			//Esto es lo que importas
