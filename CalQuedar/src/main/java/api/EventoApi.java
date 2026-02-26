@@ -1,5 +1,6 @@
 package api;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,10 +59,35 @@ public class EventoApi {
 	}
 	
 	@GET
+	@Path("/Cargar/PropiosProximos")
+	public Response cargarEventosPropiosProximosJSON(@Context HttpServletRequest peticion) {
+		EventosRespuesta todosEventos = new EventosRespuesta();
+		todosEventos.setEventosPersonales(DaoEventos.getInstancia().cargarEventosPersonalesPropiosProximos((String) peticion.getSession(true).getAttribute("username")));
+		todosEventos.setEventosGrupales(DaoEventos.getInstancia().cargarEventosGrupalesProximos((String) peticion.getSession(true).getAttribute("username")));
+		if(todosEventos.getEventosGrupales() == null && todosEventos.getEventosPersonales() == null) {
+			return Response.status(Response.Status.NOT_FOUND).entity(new EventosRespuesta()).build();
+		}else {
+			return Response.status(Response.Status.OK).entity(todosEventos).build();
+		}
+	}
+	
+	@GET
 	@Path("/Cargar/Ajenos")
 	public Response cargarEventosAjenosJSON(@QueryParam("amigo") String username) {
 		ArrayList<EventoPersonal> listaEventos = null;
 		listaEventos = DaoEventos.getInstancia().cargarEventosPersonalesAjenos(username);
+		if(listaEventos.isEmpty() || listaEventos == null) {
+			return Response.status(Response.Status.NOT_FOUND).entity(listaEventos = new ArrayList<EventoPersonal>()).build();
+		}else {
+			return Response.status(Response.Status.OK).entity(listaEventos).build();
+		}
+	}
+	
+	@GET
+	@Path("/Cargar/AjenosProximos")
+	public Response cargarEventosAjenosProximosJSON(@QueryParam("amigo") String username) {
+		ArrayList<EventoPersonal> listaEventos = null;
+		listaEventos = DaoEventos.getInstancia().cargarEventosPersonalesAjenosProximos(username);
 		if(listaEventos.isEmpty() || listaEventos == null) {
 			return Response.status(Response.Status.NOT_FOUND).entity(listaEventos = new ArrayList<EventoPersonal>()).build();
 		}else {

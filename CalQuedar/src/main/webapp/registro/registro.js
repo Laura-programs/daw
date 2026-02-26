@@ -6,11 +6,14 @@ import {
 } from "../script/funciones.js";
 import { Usuario } from "../objJS/usuario.js";
 
+const urlActual = new URL(window.location.href).host;
+
 async function registroUsuario(usuarioRegistrar) {
-  return fetch("http://localhost:8080/CalQuedar/rest/User/Registro", {
+  return fetch(`http://${urlActual}/CalQuedar/rest/User/Registro`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-origin': '*',
     },
     body: JSON.stringify(usuarioRegistrar),
   });

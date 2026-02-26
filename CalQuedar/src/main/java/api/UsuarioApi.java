@@ -98,6 +98,19 @@ public class UsuarioApi {
 		}
 	}
 	
+	@GET
+	@Path("/AmigosComun")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response cargarAmigosComunJSON(@Context HttpServletRequest peticion, @QueryParam("amigo") String usernameAmigo) {
+		ArrayList<Usuario> listaAmigos = new ArrayList<Usuario>();
+		listaAmigos = DaoUsuarios.getInstancia().cargarAmigosComun((String) peticion.getSession(true).getAttribute("username"), usernameAmigo);
+		if(listaAmigos == null) {
+			return Response.status(Response.Status.NOT_FOUND).entity(new ArrayList<Usuario>()).build();
+		} else {
+			return Response.status(Response.Status.OK).entity(listaAmigos).build();
+		}
+	}
+	
 	@POST
 	@Path("/AnadirAmigo")
 	public Response anadirAmigo(@Context HttpServletRequest peticion, @QueryParam("amigo") String usernameAmigo) {

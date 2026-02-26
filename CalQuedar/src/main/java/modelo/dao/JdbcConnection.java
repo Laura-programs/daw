@@ -19,8 +19,8 @@ public class JdbcConnection {
 	 */
 	public static Connection getConnection() {
 		String db = "CALQUEDAR";
-		String user = "gestor";
-		String pass = "IiT19fb7khNWzU";
+		String user = "root";
+		String pass = "";
 //		String url = "jdbc:mysql://localhost:3306/" + db;
 		String url = System.getenv("JDBC_URL");
 		
@@ -28,6 +28,7 @@ public class JdbcConnection {
 			//Esto es lo que importas
 			// Cargar el conector de MySQL
 			Class.forName("com.mysql.jdbc.Driver");
+			System.out.println(url);
 			
 			// Crear conexión a la base de datos
 			connection = (Connection) DriverManager.getConnection(url, user, pass);

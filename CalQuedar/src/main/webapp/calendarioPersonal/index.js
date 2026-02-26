@@ -22,32 +22,64 @@ import {
   contenedorAmigos,
 } from "../script/selectores.js";
 
+const urlActual = new URL(window.location.href).host;
+
 async function cargarAmigos() {
-  return fetch("http://localhost:8080/CalQuedar/rest/User/Amigos");
+  return fetch(`http://${urlActual}/CalQuedar/rest/User/Amigos`,
+    {
+      headers: {
+        'Access-Control-Allow-origin': '*'
+      }
+    }
+  );
 }
 
 async function cargarEventos() {
-  return fetch("http://localhost:8080/CalQuedar/rest/Evento/Cargar/Propios");
+  return fetch(`http://${urlActual}/CalQuedar/rest/Evento/Cargar/Propios`,
+    {
+      headers: {
+        'Access-Control-Allow-origin': '*'
+      }
+    }
+  );
+}
+
+async function cargarEventosProximos() {
+  return fetch(`http://${urlActual}/CalQuedar/rest/Evento/Cargar/PropiosProximos`,
+    {
+      headers: {
+        'Access-Control-Allow-origin': '*'
+      }
+    }
+  );
 }
 
 async function anadirAmigo(amigo) {
   return fetch(
-    `http://localhost:8080/CalQuedar/rest/User/AnadirAmigo?amigo=${amigo}`,
+    `http://${urlActual}/CalQuedar/rest/User/AnadirAmigo?amigo=${amigo}`,
     {
       method: "POST",
+      headers: {
+        'Access-Control-Allow-origin': '*'
+      }
     },
   );
 }
 
 async function eliminaAmigoFetch(amigo) {
   return fetch(
-    `http://localhost:8080/CalQuedar/rest/User/EliminarAmigo?amigo=${amigo}`,
+    `http://${urlActual}/CalQuedar/rest/User/EliminarAmigo?amigo=${amigo}`,
+    {
+      headers: {
+        'Access-Control-Allow-origin': '*'
+      }
+    }
   );
 }
 
-async function anadirGrupo(grupo) {}
 
 let listaEventosCalendario = [];
+let listaEventosProximosCalendario = [];
 
 document.addEventListener("DOMContentLoaded", function () {
   cargarAmigos()
@@ -76,6 +108,13 @@ document.addEventListener("DOMContentLoaded", function () {
         columnFormat: "dddd",
         events: listaEventosCalendario,
       });
+      mainCalendar.render();
+    });
+
+    cargarEventosProximos()
+    .then((listaEventos) => listaEventos.json())
+    .then((datos) => {
+      listaEventosProximosCalendario = procesarEventosSet(datos);
       const sideCalendar = new FullCalendar.Calendar(calendarioLateral, {
         locale: "es",
         initialView: "listYear",
@@ -84,12 +123,9 @@ document.addEventListener("DOMContentLoaded", function () {
           center: "",
           end: "",
         },
-        events: listaEventosCalendario,
-        height: "auto",
+        events: listaEventosProximosCalendario,
         header: false,
       });
-
-      mainCalendar.render();
       sideCalendar.render();
     });
 });
@@ -127,7 +163,6 @@ function pintaAmigos(amigos) {
     divAmigo.classList.add("amigo");
     listaAmigos.appendChild(divAmigo);
   });
-  debugger;
 }
 
 btnDropDown.addEventListener("click", function () {

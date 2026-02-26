@@ -1,13 +1,17 @@
 import { UsuarioDTO } from "../objJS/DTO/usuarioDTO.js";
 import { dropDownLogOut, btnDropDown } from "../script/selectores.js";
 
+const urlActual = new URL(window.location.href).host;
+
 async function logearUsuario(usuarioLogin) {
-  return fetch("http://localhost:8080/CalQuedar/rest/User/Login", {
+  
+  return fetch(`http://${urlActual}/CalQuedar/rest/User/Login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'Access-Control-Allow-origin': '*',
     },
-    body: JSON.stringify(usuarioLogin),
+    body: JSON.stringify(usuarioLogin)
   });
 }
 

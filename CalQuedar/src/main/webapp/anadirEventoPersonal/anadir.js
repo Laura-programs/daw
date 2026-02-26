@@ -16,13 +16,16 @@ import {
   descripcion,
 } from "../script/selectores.js";
 
+const urlActual = new URL(window.location.href).host;
+
 async function anadirEvento(evento) {
   return fetch(
-    "http://localhost:8080/CalQuedar/rest/Evento/Anadir/EventoPersonal",
+    `http://${urlActual}/CalQuedar/rest/Evento/Anadir/EventoPersonal`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'Access-Control-Allow-origin': '*',
       },
       body: JSON.stringify(evento),
     },
@@ -30,11 +33,6 @@ async function anadirEvento(evento) {
 }
 
 addEventListener("DOMContentLoaded", function () {
-  /* const inputFechaFinal = document.getElementById("fechaFin");
-  fechaInicio.addEventListener("change", function () {
-    console.log(`${fechaInicio.value}:00`);
-    inputFechaFinal.min = `${fechaInicio.value}:00`;
-  }); */
 });
 
 fechaInicio.addEventListener("change", function () {

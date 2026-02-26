@@ -7,26 +7,66 @@ import {
   nombreAmigoHeader,
 } from "../script/selectores.js";
 
+const urlActual = new URL(window.location.href).host;
+
 async function cargarEventos(usuario) {
   return fetch(
-    `http://localhost:8080/CalQuedar/rest/Evento/Cargar/Ajenos?amigo=${usuario}`,
+    `http://${urlActual}/CalQuedar/rest/Evento/Cargar/Ajenos?amigo=${usuario}`,
+    {
+      headers: {
+        "Access-Control-Allow-origin": "*",
+      },
+    },
+  );
+}
+
+async function cargarEventosProximos(usuario) {
+  return fetch(
+    `http://${urlActual}/CalQuedar/rest/Evento/Cargar/AjenosProximos?amigo=${usuario}`,
+    {
+      headers: {
+        "Access-Control-Allow-origin": "*",
+      },
+    },
   );
 }
 
 async function cargarInfoAmigo(usuario) {
-  return fetch(`http://localhost:8080/CalQuedar/rest/User/InfoAmigo?amigo=${usuario}`)
+  return fetch(
+    `http://${urlActual}/CalQuedar/rest/User/InfoAmigo?amigo=${usuario}`,
+    {
+      headers: {
+        "Access-Control-Allow-origin": "*",
+      },
+    },
+  );
+}
+
+async function cargarAmigosComun(usuario) {
+  return fetch(
+    `http://${urlActual}/CalQuedar/rest/User/AmigosComun?amigo=${usuario}`,
+    {
+      headers: {
+        "Access-Control-Allow-origin": "*",
+      },
+    },
+  );
 }
 
 let listaEventosCalendario = [];
+let listaEventosProximosCalendario = [];
 
 document.addEventListener("DOMContentLoaded", function () {
   let params = new URLSearchParams(document.location.search);
   let usuarioAmigo = params.get("amigo");
   cargarInfoAmigo(usuarioAmigo)
-  .then((amigo) => amigo.json())
-  .then((datos) => {
-    nombreAmigoHeader.innerText = datos.nombre;
-  });
+    .then((amigo) => amigo.json())
+    .then((datos) => {
+      nombreAmigoHeader.innerText = datos.nombre;
+    });
+  cargarAmigosComun()
+    .then((listaAmigos) => listaAmigos.json())
+    .then((datos) => pintaAmigos(datos));
   cargarEventos(usuarioAmigo)
     .then((listaEventos) => listaEventos.json())
     .then((datos) => {
@@ -49,6 +89,14 @@ document.addEventListener("DOMContentLoaded", function () {
         columnFormat: "dddd",
         events: listaEventosCalendario,
       });
+
+      mainCalendar.render();
+    });
+
+  cargarEventosProximos(usuarioAmigo)
+    .then((listaEventos) => listaEventos.json())
+    .then((datos) => {
+      listaEventosProximosCalendario = procesarEventosAjenos(datos);
       const sideCalendar = new FullCalendar.Calendar(calendarioLateral, {
         locale: "es",
         initialView: "listYear",
@@ -58,11 +106,9 @@ document.addEventListener("DOMContentLoaded", function () {
           end: "",
         },
 
-        events: listaEventosCalendario,
-        height: "auto",
+        events: listaEventosProximosCalendario,
         header: false,
       });
-      mainCalendar.render();
       sideCalendar.render();
     });
 });
@@ -70,3 +116,19 @@ document.addEventListener("DOMContentLoaded", function () {
 btnDropDown.addEventListener("click", function () {
   dropDownLogOut.classList.toggle("muestra");
 });
+
+function pintaAmigos(amigos) {
+  amigos.forEach((amigo) => {
+    let divAmigo = document.createElement("div");
+    divAmigo.innerHTML = `<div aria-roledescription="Información amigo" class="info-amigo">
+                <i class="bi bi-emoji-wink"></i>
+                <a href="/CalQuedar/CalendarioAmigoServlet?amigo=${amigo.username}"
+                  >${amigo.nombre}</a
+                >
+              </div>
+              <button class="eliminar-amigo" data-id='${amigo.username}'><i class="bi bi-person-x"></i
+              ></button>`;
+    divAmigo.classList.add("amigo");
+    listaAmigos.appendChild(divAmigo);
+  });
+}

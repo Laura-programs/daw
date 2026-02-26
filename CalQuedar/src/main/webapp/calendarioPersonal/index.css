@@ -43,11 +43,15 @@ main {
     border-radius: 24px 0 0 24px;
 }
 
+.pestanyas {
+    display: flex;
+}
+
 .pestanya {
-    width: 49%;
+    width: 100%;
     padding: 8px;
     margin: 0;
-    font-size: 1.25vw;
+    font-size: 24px;
     font-weight: bolder;
 }
 
@@ -156,4 +160,24 @@ main {
 
 .grupo i {
     font-size: 1.5625vw;
+}
+
+@media (max-width: 700px) {
+    main {
+        display: flex;
+        flex-direction: column;
+    }
+    .lateral-izquierda {
+        order: 2;
+        border: none;
+    }
+
+    .lateral-derecha {
+        order: 3;
+        border: none;
+    }
+
+    .centro {
+        order: 1;
+    }
 }

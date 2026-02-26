@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * @author Laura Mora
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  * Objeto grupo
  */
@@ -27,12 +27,14 @@ public class Grupo implements Serializable{
 	 * @param id Clave primaria creada junto con el grupo
 	 * @param nombre Nombre distinguible del grupo
 	 * @param miembros Usuarios que forman parte del grupo
+	 * @param admin Usuario administrador del grupo
 	 */
 	
-	public Grupo(String id, String nombre, ArrayList<Usuario> miembros) {
+	public Grupo(String id, String nombre, ArrayList<Usuario> miembros, Usuario admin) {
 		this.id = id;
 		this.nombre = nombre;
 		this.miembros = miembros;
+		this.admin = admin;
 	}
 	
 	public String getId() {
@@ -57,6 +59,14 @@ public class Grupo implements Serializable{
 	
 	public void setMiembros(ArrayList<Usuario> miembros) {
 		this.miembros = miembros;
+	}
+
+	public Usuario getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Usuario admin) {
+		this.admin = admin;
 	}
 
 	@Override

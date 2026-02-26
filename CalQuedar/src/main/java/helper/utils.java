@@ -10,4 +10,15 @@ public class utils {
 		String color = String.valueOf(nextInt);
 		return color;
 	}
+	
+	public static boolean intToBool(int dato) {
+		boolean respuesta;
+		if(dato == 1) {
+			respuesta = true;
+		}else {
+			respuesta = false;
+		}
+		
+		return respuesta;
+	}
 }

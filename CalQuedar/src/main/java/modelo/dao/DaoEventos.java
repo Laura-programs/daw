@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import modelo.bean.EventoGrupal;
@@ -88,9 +89,65 @@ public class DaoEventos {
 		return eventosPersonales;
 	}
 	
+	public ArrayList<EventoPersonal> cargarEventosPersonalesPropiosProximos(String usuario) {
+		ArrayList<EventoPersonal> eventosPersonales = new ArrayList<EventoPersonal>();
+		String sql = "SELECT * FROM evento_personal WHERE creador = ? AND DATE(fechaInicio) > CURRENT_DATE()";
+		try {
+			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, usuario);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				EventoPersonal evento = new EventoPersonal();
+				evento.setId(rs.getInt("id"));
+				evento.setTitulo(rs.getString("titulo"));
+				evento.setVisibilidad(rs.getString("visibilidad"));
+				evento.setEtiqueta(rs.getString("etiqueta"));
+				evento.setFechaInicio(rs.getTimestamp("fechaInicio"));
+				evento.setFechaFin(rs.getTimestamp("fechaFin"));
+				evento.setDescripcion(rs.getString("descripcion"));
+				evento.setCreador(DaoUsuarios.getInstancia().buscarUsername(rs.getString("creador")));
+				eventosPersonales.add(evento);
+			}
+			preparedStatement.close();
+		}catch (SQLException e) {
+			System.out.println(preparedStatement.toString());
+			e.printStackTrace();
+		}
+		return eventosPersonales;
+	}
+	
 	public ArrayList<EventoPersonal> cargarEventosPersonalesAjenos(String usuario) {
 		ArrayList<EventoPersonal> eventosPersonales = new ArrayList<EventoPersonal>();
 		String sql = "SELECT * FROM evento_personal WHERE creador = ? AND visibilidad = 'publico'";
+		try {
+			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, usuario);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				EventoPersonal evento = new EventoPersonal();
+				evento.setId(rs.getInt("id"));
+				evento.setTitulo(rs.getString("titulo"));
+				evento.setVisibilidad(rs.getString("visibilidad"));
+				evento.setEtiqueta(rs.getString("etiqueta"));
+				evento.setFechaInicio(rs.getTimestamp("fechaInicio"));
+				evento.setFechaFin(rs.getTimestamp("fechaFin"));
+				evento.setDescripcion(rs.getString("descripcion"));
+				evento.setCreador(DaoUsuarios.getInstancia().buscarUsername(rs.getString("creador")));
+				eventosPersonales.add(evento);
+			}
+			preparedStatement.close();
+		}catch (SQLException e) {
+			System.out.println(preparedStatement.toString());
+			e.printStackTrace();
+		}
+		return eventosPersonales;
+	}
+	
+	public ArrayList<EventoPersonal> cargarEventosPersonalesAjenosProximos(String usuario) {
+		ArrayList<EventoPersonal> eventosPersonales = new ArrayList<EventoPersonal>();
+		String sql = "SELECT * FROM evento_personal WHERE creador = ? AND visibilidad = 'publico' AND DATE(fechaInicio) > CURRENT_DATE()";
 		try {
 			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
 			preparedStatement.setString(1, usuario);
@@ -255,6 +312,32 @@ public class DaoEventos {
 	public ArrayList<EventoGrupal> cargarEventosGrupales(String usuario) {
 		ArrayList<EventoGrupal> eventosGrupales = new ArrayList<EventoGrupal>();
 		String sql = "SELECT * FROM evento_grupal WHERE evento_grupal.id IN (SELECT id FROM participantes_evento WHERE usuario = ?)";
+		try {
+			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, usuario);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while (rs.next()) {
+				EventoGrupal evento = new EventoGrupal();
+				evento.setId(rs.getInt("id"));
+				evento.setTitulo(rs.getString("titulo"));
+				evento.setPlanFinal(rs.getString("planFinal"));
+				evento.setFecha(rs.getString("fecha"));
+				evento.setGrupo(buscaGrupo(rs.getString("grupo")));
+				evento.setSugerencias(cargarSugerencias(rs.getInt("id")));
+				eventosGrupales.add(evento);
+			}
+			preparedStatement.close();
+		}catch(SQLException e) {
+			System.out.println(preparedStatement.toString());
+			e.printStackTrace();
+		}
+		return eventosGrupales;
+	}
+	
+	public ArrayList<EventoGrupal> cargarEventosGrupalesProximos(String usuario) {
+		ArrayList<EventoGrupal> eventosGrupales = new ArrayList<EventoGrupal>();
+		String sql = "SELECT * FROM evento_grupal WHERE evento_grupal.id IN (SELECT id FROM participantes_evento WHERE usuario = ? AND DATE(fecha) > CURRENT_DATE()";
 		try {
 			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
 			preparedStatement.setString(1, usuario);

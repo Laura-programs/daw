@@ -146,6 +146,38 @@ public class DaoUsuarios {
 		
 	}
 	
+	public ArrayList<Usuario> cargarAmigosComun(String username, String usernameAmigo) {
+		ArrayList<Usuario> listaAmigos = new ArrayList<Usuario>();
+		String sql = "SELECT u.* FROM usuario u JOIN amistad a ON (u.username = a.amigo1 OR u.username = a.amigo2) WHERE ? IN (a.amigo1, a.amigo2) AND u.username <> ? AND u.username IN ("
+				+ "SELECT CASE"
+				+ "WHEN a2.amigo1 = ? THEN a2.amigo2"
+				+ "WHEN a2.amigo2 = ? THEN a2.amigo1"
+				+ "END"
+				+ "FROM amistad a2"
+				+ "WHERE ? IN (a2.amigo1, a2.amigo2)";
+		try {
+			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, usernameAmigo);
+			preparedStatement.setString(2, username);
+			preparedStatement.setString(3, username);
+			preparedStatement.setString(4, username);
+			preparedStatement.setString(5, username);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				Usuario usuario = new Usuario();
+				usuario.setNombre(rs.getString("nombre"));
+				usuario.setUsername(rs.getString("username"));
+				listaAmigos.add(usuario);
+			}
+			preparedStatement.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return listaAmigos;
+		
+	}
+	
 	public ArrayList<Grupo> cargarGrupos(String username) {
 		ArrayList<Grupo> listaGrupos = new ArrayList<Grupo>();
 		String sql = "SELECT grupo.id, grupo.nombre FROM grupo LEFT JOIN miembros_grupo ON miembros_grupo.grupo = grupo.id WHERE miembros_grupo.usuario = ?";

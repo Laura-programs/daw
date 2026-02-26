@@ -44,3 +44,10 @@ export const descripcion = document.getElementById("descripcion");
 export const btnEliminar = document.getElementById("eliminar-evento");
 export const btnActualizar = document.getElementById("actualizar-evento");
 export const btnCancelar = document.getElementById("boton-cancelar");
+
+//Panel administrador
+export const contadorUsuarios = document.getElementById("contadorUsuarios");
+export const contadorGrupos = document.getElementById("contadorGrupos");
+export const contadorEventos = document.getElementById("contadorEventos");
+export const tablaUsuarios = document.getElementById("cuerpo-tabla-usuarios");
+export const tablaGrupos = document.getElementById("cuerpo-tabla-grupos");
