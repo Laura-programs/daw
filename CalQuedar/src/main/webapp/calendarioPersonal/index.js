@@ -25,32 +25,29 @@ import {
 const urlActual = new URL(window.location.href).host;
 
 async function cargarAmigos() {
-  return fetch(`http://${urlActual}/CalQuedar/rest/User/Amigos`,
-    {
-      headers: {
-        'Access-Control-Allow-origin': '*'
-      }
-    }
-  );
+  return fetch(`http://${urlActual}/CalQuedar/rest/User/Amigos`, {
+    headers: {
+      "Access-Control-Allow-origin": "*",
+    },
+  });
 }
 
 async function cargarEventos() {
-  return fetch(`http://${urlActual}/CalQuedar/rest/Evento/Cargar/Propios`,
-    {
-      headers: {
-        'Access-Control-Allow-origin': '*'
-      }
-    }
-  );
+  return fetch(`http://${urlActual}/CalQuedar/rest/Evento/Cargar/Propios`, {
+    headers: {
+      "Access-Control-Allow-origin": "*",
+    },
+  });
 }
 
 async function cargarEventosProximos() {
-  return fetch(`http://${urlActual}/CalQuedar/rest/Evento/Cargar/PropiosProximos`,
+  return fetch(
+    `http://${urlActual}/CalQuedar/rest/Evento/Cargar/PropiosProximos`,
     {
       headers: {
-        'Access-Control-Allow-origin': '*'
-      }
-    }
+        "Access-Control-Allow-origin": "*",
+      },
+    },
   );
 }
 
@@ -60,8 +57,8 @@ async function anadirAmigo(amigo) {
     {
       method: "POST",
       headers: {
-        'Access-Control-Allow-origin': '*'
-      }
+        "Access-Control-Allow-origin": "*",
+      },
     },
   );
 }
@@ -71,12 +68,11 @@ async function eliminaAmigoFetch(amigo) {
     `http://${urlActual}/CalQuedar/rest/User/EliminarAmigo?amigo=${amigo}`,
     {
       headers: {
-        'Access-Control-Allow-origin': '*'
-      }
-    }
+        "Access-Control-Allow-origin": "*",
+      },
+    },
   );
 }
-
 
 let listaEventosCalendario = [];
 let listaEventosProximosCalendario = [];
@@ -111,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
       mainCalendar.render();
     });
 
-    cargarEventosProximos()
+  cargarEventosProximos()
     .then((listaEventos) => listaEventos.json())
     .then((datos) => {
       listaEventosProximosCalendario = procesarEventosSet(datos);
@@ -201,7 +197,7 @@ formAnadirAmigo.addEventListener("submit", function (event) {
       if (respuesta.ok) {
         modalAnadirAmigo.style.display = "none";
       } else if (respuesta.status == 409) {
-        alert("El usuario ya se encuentra en la lista de amigos");
+        alert("El usuario ya se encuentra en la lista de amigos o no existe");
       } else {
         alert("Ha habido un error");
       }

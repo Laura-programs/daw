@@ -5,6 +5,7 @@ import {
   calendarioCentral,
   calendarioLateral,
   nombreAmigoHeader,
+  listaAmigos
 } from "../script/selectores.js";
 
 const urlActual = new URL(window.location.href).host;
@@ -64,9 +65,11 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((datos) => {
       nombreAmigoHeader.innerText = datos.nombre;
     });
-  cargarAmigosComun()
+
+  cargarAmigosComun(usuarioAmigo)
     .then((listaAmigos) => listaAmigos.json())
     .then((datos) => pintaAmigos(datos));
+
   cargarEventos(usuarioAmigo)
     .then((listaEventos) => listaEventos.json())
     .then((datos) => {
@@ -89,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function () {
         columnFormat: "dddd",
         events: listaEventosCalendario,
       });
-
       mainCalendar.render();
     });
 
@@ -105,7 +107,6 @@ document.addEventListener("DOMContentLoaded", function () {
           center: "",
           end: "",
         },
-
         events: listaEventosProximosCalendario,
         header: false,
       });

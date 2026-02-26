@@ -17,6 +17,8 @@ import {
   descripcion,
   btnActualizar,
   btnEliminar,
+  listaAmigos,
+  calendarioLateral
 } from "../script/selectores.js";
 
 const urlActual = new URL(window.location.href).host;
@@ -88,44 +90,9 @@ async function cargarAmigos() {
   );
 }
 
-let listaEventosCalendario = [];
 let listaEventosProximosCalendario = [];
 
 addEventListener("DOMContentLoaded", function () {
-  let params = new URLSearchParams(document.location.search);
-  let idEvento = params.get("id");
-  buscaEvento(idEvento)
-    .then((respuesta) => respuesta.json())
-    .then((evento) => cargarEvento(evento));
-
-  cargarAmigos()
-    .then((listaAmigos) => listaAmigos.json())
-    .then((datos) => pintaAmigos(datos));
-
-  cargarEventos()
-    .then((listaEventos) => listaEventos.json())
-    .then((datos) => {
-      listaEventosCalendario = procesarEventosSet(datos);
-      const mainCalendar = new FullCalendar.Calendar(calendarioCentral, {
-        locale: "es",
-        initialView: "dayGridMonth",
-        headerToolbar: {
-          start: "prev next",
-          center: "title",
-          end: "today",
-        },
-        titleFormat: {
-          year: "numeric",
-          month: "long",
-        },
-        firstDay: 1,
-        themeSystem: "bootstrap5",
-        fixedWeekCount: false,
-        columnFormat: "dddd",
-        events: listaEventosCalendario,
-      });
-      mainCalendar.render();
-    });
 
   cargarEventosProximos()
     .then((listaEventos) => listaEventos.json())
@@ -144,6 +111,17 @@ addEventListener("DOMContentLoaded", function () {
       });
       sideCalendar.render();
     });
+
+  let params = new URLSearchParams(document.location.search);
+  let idEvento = params.get("id");
+  buscaEvento(idEvento)
+    .then((respuesta) => respuesta.json())
+    .then((evento) => cargarEvento(evento));
+
+  cargarAmigos()
+    .then((listaAmigos) => listaAmigos.json())
+    .then((datos) => pintaAmigos(datos));
+
 });
 
 function pintaAmigos(amigos) {

@@ -337,7 +337,7 @@ public class DaoEventos {
 	
 	public ArrayList<EventoGrupal> cargarEventosGrupalesProximos(String usuario) {
 		ArrayList<EventoGrupal> eventosGrupales = new ArrayList<EventoGrupal>();
-		String sql = "SELECT * FROM evento_grupal WHERE evento_grupal.id IN (SELECT id FROM participantes_evento WHERE usuario = ? AND DATE(fecha) > CURRENT_DATE()";
+		String sql = "SELECT * FROM evento_grupal WHERE evento_grupal.id IN (SELECT id FROM participantes_evento WHERE usuario = ? AND DATE(fecha) > CURRENT_DATE())";
 		try {
 			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
 			preparedStatement.setString(1, usuario);

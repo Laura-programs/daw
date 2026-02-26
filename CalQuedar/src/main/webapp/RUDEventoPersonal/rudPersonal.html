@@ -5,6 +5,7 @@
     <title>¿Cuál es el plan?</title>
     <link href="../styles/styles.css" rel="stylesheet" />
     <link href="./rudPersonal.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles/calendario.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -18,7 +19,11 @@
   </head>
   <body>
     <header class="fondo-principal">
-      <img src="../img/logo.png" alt="Logo CalQuedar" />
+      <div>
+        <a href="/CalQuedar/UserCalendarServlet">
+          <img src="../img/logo.png" alt="Logo CalQuedar" />
+        </a>
+      </div>
       <h1>Viendo evento</h1>
       <nav>
         <ul>
@@ -240,4 +245,6 @@
       crossorigin="anonymous"
     ></script>
   </body>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js"></script>
+    <script src="fullcalendar/core/locales-all.global.js"></script>
 </html>

@@ -29,7 +29,9 @@
       <h1>Panel de administrador</h1>
       <nav>
         <ul>
-          <li><a href="#">Gestión de usuarios</a></li>
+          <li><a href="/CalQuedar/ControlUsuarios">Gestión de usuarios</a></li>
+          <li><a href="/CalQuedar/DashboardAdmin">Dashboard</a></li>
+          <li><a href="/CalQuedar/LogOutServlet">Cerrar sesión</a></li>
         </ul>
       </nav>
     </header>
@@ -65,7 +67,7 @@
                 <th scope="col">Rol</th>
               </tr>
             </thead>
-            <tbody id="cuerpo-tabla-usuarios tabla">
+            <tbody id="cuerpo-tabla-usuarios">
 
             </tbody>
           </table>
@@ -89,7 +91,7 @@
       </section>
     </main>
     <footer>
-      <p>Administrador logueado: <span></span></p>
+      <p>Sesión iniciada como administrador</p>
     </footer>
     <script src="./panelAdmin.js" type="module"></script>
     <script

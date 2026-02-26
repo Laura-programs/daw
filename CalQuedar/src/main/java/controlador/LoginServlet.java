@@ -40,7 +40,13 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.sendRedirect("/CalQuedar/UserCalendarServlet");
+		HttpSession sesion = request.getSession();
+		String rol = (String) sesion.getAttribute("admin");
+		if(rol.contentEquals("1")) {
+			response.sendRedirect("./DashboardAdmin");
+		}else {
+			response.sendRedirect("/CalQuedar/UserCalendarServlet");
+		}
 	}
 
 }

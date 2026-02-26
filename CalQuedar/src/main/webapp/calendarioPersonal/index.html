@@ -19,7 +19,11 @@
   </head>
   <body>
     <header class="fondo-principal">
-      <img src="../img/logo.png" alt="Logo CalQuedar" />
+      <div>
+        <a href="/CalQuedar/UserCalendarServlet">
+          <img src="../img/logo.png" alt="Logo CalQuedar" />
+        </a>
+      </div>
       <h1>¡Buenos días!</h1>
       <nav>
         <ul>
@@ -119,10 +123,18 @@
             aria-roledescription="Grupo botones funcionalidad grupo"
             class="grupo-botones"
           >
-            <button class="boton boton-pequeño" id="crear-grupo-btn" aria-haspopup="true">
+            <button
+              class="boton boton-pequeño"
+              id="crear-grupo-btn"
+              aria-haspopup="true"
+            >
               Crear grupo
             </button>
-            <button class="boton boton-pequeño" id="unir-grupo-btn" aria-haspopup="true">
+            <button
+              class="boton boton-pequeño"
+              id="unir-grupo-btn"
+              aria-haspopup="true"
+            >
               Añadir grupo
             </button>
           </div>
@@ -134,7 +146,9 @@
             <div class="grupo">
               <div class="info-grupo">
                 <i class="bi bi-people"></i>
-                <a href="/CalQuedar/CalendarioGrupoServlet?grupo=test">Grupo</a>
+                <a href="/CalQuedar/CalendarioGrupalServlet?grupo=test"
+                  >Grupo</a
+                >
               </div>
               <a href="#"><i class="bi bi-box-arrow-right"></i></a>
             </div>
@@ -181,8 +195,7 @@
           <p>Uniéndose a la pandilla</p>
         </div>
         <div class="cuerpo-modal">
-          <form action="#"
-          id="form-anadir-grupo">
+          <form action="#" id="form-anadir-grupo">
             <label for="group-name">Escribe el código del grupo</label>
             <input
               type="text"
@@ -215,9 +228,7 @@
           <p>¡Nuevo amigo!</p>
         </div>
         <div class="cuerpo-modal">
-          <form action="#"
-          id="form-anadir-amigo"
-          novalidate>
+          <form action="#" id="form-anadir-amigo" novalidate>
             <label for="group-name">Escribe el username</label>
             <input
               type="text"
@@ -228,11 +239,8 @@
               required
             />
             <div class="invalid-feedback">No se encuentra el usuario</div>
-            <button
-              type="submit"
-              class="boton boton-pequeño"
-            >
-              Unirse
+            <button type="submit" class="boton boton-pequeño">
+              Añadir amigo
             </button>
           </form>
         </div>

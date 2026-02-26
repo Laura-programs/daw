@@ -21,6 +21,7 @@ import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 
+import helper.utils;
 import modelo.bean.AmigoAnadidoException;
 import modelo.bean.UsernameExisteException;
 import modelo.bean.Usuario;
@@ -81,6 +82,7 @@ public class UsuarioApi {
 		}else {
 			HttpSession miSesion = peticion.getSession(true);
 			miSesion.setAttribute("username", userLogin.getUsername());
+			miSesion.setAttribute("admin", String.valueOf(userLogin.getAdmin()));
 			return Response.status(Response.Status.OK).entity("Usuario encontrado").build();
 		}
 	}
@@ -102,7 +104,7 @@ public class UsuarioApi {
 	@Path("/AmigosComun")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response cargarAmigosComunJSON(@Context HttpServletRequest peticion, @QueryParam("amigo") String usernameAmigo) {
-		ArrayList<Usuario> listaAmigos = new ArrayList<Usuario>();
+		ArrayList<Usuario> listaAmigos = null;
 		listaAmigos = DaoUsuarios.getInstancia().cargarAmigosComun((String) peticion.getSession(true).getAttribute("username"), usernameAmigo);
 		if(listaAmigos == null) {
 			return Response.status(Response.Status.NOT_FOUND).entity(new ArrayList<Usuario>()).build();

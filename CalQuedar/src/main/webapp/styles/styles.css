@@ -101,6 +101,12 @@ body {
     height: 30px;
 }
 
+.eliminar-amigo {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
 /*Customización header*/
 
 header {
@@ -231,6 +237,10 @@ footer p {
     border-radius: 8px;
     border-style: solid;
     height: fit-content;
+}
+
+.boton-filtro:hover {
+    cursor: default;
 }
 
 /*Customizacion modales*/

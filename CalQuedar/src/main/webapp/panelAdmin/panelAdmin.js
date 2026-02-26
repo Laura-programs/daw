@@ -1,4 +1,4 @@
-import { contadorEventos, contadorGrupos, contadorUsuarios, tablaUsuarios } from "../script/selectores.js";
+import { contadorEventos, contadorGrupos, contadorUsuarios, tablaGrupos, tablaUsuarios } from "../script/selectores.js";
 
 const urlActual = new URL(window.location.href).host;
 
@@ -42,6 +42,16 @@ async function listaUsuarios() {
   );
 }
 
+async function listaGrupos() {
+    return fetch(`http://${urlActual}/CalQuedar/rest/Admin/Listado/Grupos`,
+    {
+      headers: {
+        'Access-Control-Allow-origin': '*'
+      }
+    }
+  );
+}
+
 addEventListener("DOMContentLoaded", function() {
   totalUsuarios()
   .then(respuesta => respuesta.json())
@@ -58,13 +68,17 @@ addEventListener("DOMContentLoaded", function() {
   listaUsuarios()
   .then(respuesta => respuesta.json())
   .then(datos => pintarTablaUsuarios(datos));
+
+  listaGrupos()
+  .then(respuesta => respuesta.json())
+  .then(datos => pintarTablaGrupos(datos));
 })
 
 function pintarTablaUsuarios(usuarios) {
   usuarios.forEach(usuario => {
     let fila = document.createElement("tr");
     let rol;
-    if(usuario.rol == true) {
+    if(usuario.admin == 1) {
       rol = "Administrador"
     } else {
       rol = "None"
@@ -72,4 +86,12 @@ function pintarTablaUsuarios(usuarios) {
     fila.innerHTML = `<td>${usuario.username}</td><td>${usuario.nombre}</td><td>${rol}</td>`
     tablaUsuarios.appendChild(fila);
   });
+}
+
+function pintarTablaGrupos(grupos) {
+  grupos.forEach(grupo => {
+   let fila = document.createElement("tr");
+   fila.innerHTML = `<td>${grupo.id}</td><td>${grupo.nombre}</td><td>${grupo.miembros.length()}</td><td>${grupo.admin.username}</td>`
+   tablaGrupos.appendChild(fila);
+  })
 }

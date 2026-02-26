@@ -58,7 +58,8 @@ main {
 
 .controles-form {
     align-self: end;
-    border: 5px solid var(--principal-oscuro);
+    border-top: 5px solid var(--principal-oscuro);
+    border-left: 5px solid var(--principal-oscuro);
     border-radius: 24px 0 17px 0;
     bottom: 0;
 }

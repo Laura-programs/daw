@@ -14,8 +14,8 @@ public class Usuario implements Serializable {
 	private String username;
 	private String nombre;
 	private String contrasenya;
-	private boolean admin;
-	
+	private int admin;
+
 	public Usuario() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -28,7 +28,7 @@ public class Usuario implements Serializable {
 	 * @param contrasenya Contraseña segura
 	 */
 
-	public Usuario(String username, String nombre, String contrasenya, boolean admin) {
+	public Usuario(String username, String nombre, String contrasenya, int admin) {
 		this.username = username;
 		this.nombre = nombre;
 		this.contrasenya = contrasenya;
@@ -65,11 +65,11 @@ public class Usuario implements Serializable {
 		this.contrasenya = contrasenya;
 	}
 
-	public boolean isAdmin() {
+	public int getAdmin() {
 		return admin;
 	}
 
-	public void setAdmin(boolean admin) {
+	public void setAdmin(int admin) {
 		this.admin = admin;
 	}
 

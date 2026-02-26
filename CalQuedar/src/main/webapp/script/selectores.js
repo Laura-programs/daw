@@ -51,3 +51,17 @@ export const contadorGrupos = document.getElementById("contadorGrupos");
 export const contadorEventos = document.getElementById("contadorEventos");
 export const tablaUsuarios = document.getElementById("cuerpo-tabla-usuarios");
 export const tablaGrupos = document.getElementById("cuerpo-tabla-grupos");
+
+//Registro administrador
+export const formularioAdmin = document.getElementById("form-admin");
+export const nombreAdmin = document.getElementById("nombre");
+export const usernameAdmin = document.getElementById("usuario");
+export const contraAdmin = document.getElementById("contrasenya");
+export const contraAdminRepe = document.getElementById("contrasenyaRepe");
+export const errorUsernameAdmin = document.getElementById("error-usuario");
+export const verContra = document.getElementById("ver-contrasenya");
+export const verContraRepe = document.getElementById("ver-contrasenya-repe");
+
+//Gestion usuarios
+export const tablaUsuariosNormales = document.getElementById("cuerpo-tabla-normales");
+export const tablaUsuariosAdmin = document.getElementById("cuerpo-tabla-admin");

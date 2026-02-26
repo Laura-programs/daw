@@ -4,12 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import helper.utils;
 import modelo.bean.Grupo;
+import modelo.bean.UsernameExisteException;
 import modelo.bean.Usuario;
 
 public class DaoAdmin {
@@ -105,7 +107,55 @@ private static DaoAdmin instance;
 				usuario.setNombre(rs.getString("nombre"));
 				usuario.setUsername(rs.getString("username"));
 				usuario.setContrasenya(rs.getString("contrasenya"));
-				usuario.setAdmin(utils.intToBool(rs.getInt("administrador")));
+				usuario.setAdmin(rs.getInt("administrador"));
+				listaUsuarios.add(usuario);
+			}
+		}catch(SQLException e) {
+			System.out.println(preparedStatement.toString());
+			e.printStackTrace();
+			listaUsuarios = null;
+		}
+		
+		return listaUsuarios;
+	}
+	
+	public ArrayList<Usuario> cargaUsuariosNormales() {
+		ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+		String sql = "SELECT * FROM usuario WHERE administrador = 0";
+		try {
+			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				Usuario usuario = new Usuario();
+				usuario.setNombre(rs.getString("nombre"));
+				usuario.setUsername(rs.getString("username"));
+				usuario.setContrasenya(rs.getString("contrasenya"));
+				usuario.setAdmin(rs.getInt("administrador"));
+				listaUsuarios.add(usuario);
+			}
+		}catch(SQLException e) {
+			System.out.println(preparedStatement.toString());
+			e.printStackTrace();
+			listaUsuarios = null;
+		}
+		
+		return listaUsuarios;
+	}
+	
+	public ArrayList<Usuario> cargaUsuariosAdmin() {
+		ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+		String sql = "SELECT * FROM usuario WHERE administrador = 1";
+		try {
+			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				Usuario usuario = new Usuario();
+				usuario.setNombre(rs.getString("nombre"));
+				usuario.setUsername(rs.getString("username"));
+				usuario.setContrasenya(rs.getString("contrasenya"));
+				usuario.setAdmin(rs.getInt("administrador"));
 				listaUsuarios.add(usuario);
 			}
 		}catch(SQLException e) {
@@ -139,5 +189,23 @@ private static DaoAdmin instance;
 		}
 		
 		return listaGrupos;
+	}
+	
+	public void anadirAdmin(Usuario usuario) {
+		String sql = "INSERT INTO usuario values (?,?,?,1)";
+		try {
+    		preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
+    	    preparedStatement.setString(1, usuario.getUsername());				        	  
+    	    preparedStatement.setString(2, usuario.getNombre());
+    	    preparedStatement.setString(3, usuario.getContrasenya());			        	  
+    	    preparedStatement.executeUpdate();
+    	    preparedStatement.close();
+		} catch (SQLIntegrityConstraintViolationException e) {
+			throw new UsernameExisteException("El username ya está en uso");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(preparedStatement);
+			throw new RuntimeException();
+		}
 	}
 }
