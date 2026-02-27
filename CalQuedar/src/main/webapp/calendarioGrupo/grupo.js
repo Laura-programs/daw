@@ -5,6 +5,19 @@ import {
     calendarioLateral
   } from "../script/selectores.js";
 
+  const urlActual = new URL(window.location.href).host;
+
+  async function cargarInfoGrupo(grupo) {
+    return fetch(
+    `http://${urlActual}/CalQuedar/rest/Evento/Cargar/AjenosProximos?amigo=${usuario}`,
+    {
+      headers: {
+        "Access-Control-Allow-origin": "*",
+      },
+    },
+  );
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     const mainCalendar = new FullCalendar.Calendar(calendarioCentral, {
       locale: 'es',

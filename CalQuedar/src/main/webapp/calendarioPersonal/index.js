@@ -20,12 +20,24 @@ import {
   listaAmigos,
   formAnadirGrupo,
   contenedorAmigos,
+  nombreGrupo,
+  formCrearGrupo,
+  idGrupo,
+  listaGrupos,
 } from "../script/selectores.js";
 
 const urlActual = new URL(window.location.href).host;
 
 async function cargarAmigos() {
   return fetch(`http://${urlActual}/CalQuedar/rest/User/Amigos`, {
+    headers: {
+      "Access-Control-Allow-origin": "*",
+    },
+  });
+}
+
+async function cargarGrupos() {
+  return fetch(`http://${urlActual}/CalQuedar/rest/Grupo/CargarListado`, {
     headers: {
       "Access-Control-Allow-origin": "*",
     },
@@ -74,6 +86,30 @@ async function eliminaAmigoFetch(amigo) {
   );
 }
 
+async function crearGrupoFetch(nombreGrupo) {
+  return fetch(
+    `http://${urlActual}/CalQuedar/rest/Grupo/Crear?grupo=${nombreGrupo}`,
+    {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-origin": "*",
+      },
+    },
+  );
+}
+
+async function unirGrupoFetch(idGrupo) {
+  return fetch(
+    `http://${urlActual}/CalQuedar/rest/Grupo/Unirse?grupo=${idGrupo}`,
+    {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-origin": "*",
+      },
+    },
+  );
+}
+
 let listaEventosCalendario = [];
 let listaEventosProximosCalendario = [];
 
@@ -81,6 +117,10 @@ document.addEventListener("DOMContentLoaded", function () {
   cargarAmigos()
     .then((listaAmigos) => listaAmigos.json())
     .then((datos) => pintaAmigos(datos));
+
+    cargarGrupos()
+    .then((listaGrupos) => listaGrupos.json())
+    .then((datos) => pintaGrupos(datos));
 
   cargarEventos()
     .then((listaEventos) => listaEventos.json())
@@ -161,6 +201,21 @@ function pintaAmigos(amigos) {
   });
 }
 
+function pintaGrupos(grupos) {
+  grupos.forEach(grupo => {
+    let divGrupo = document.createElement("div");
+    divGrupo.innerHTML = `<div aria-roledescription="Información grupo" class="info-grupo">
+                <i class="bi bi-people"></i>
+                <a href="/CalQuedar/CalendarioGrupalServlet?grupo=${grupo.id}"
+                  >${grupo.nombre}</a
+                >
+              </div>
+              <a href="#"><i class="bi bi-box-arrow-right"></i></a>`;
+    divGrupo.classList.add("grupo")
+    listaGrupos.appendChild(divGrupo);
+  });
+}
+
 btnDropDown.addEventListener("click", function () {
   dropDownLogOut.classList.toggle("muestra");
 });
@@ -195,7 +250,8 @@ formAnadirAmigo.addEventListener("submit", function (event) {
   } else {
     anadirAmigo(nombreAmigo.value).then((respuesta) => {
       if (respuesta.ok) {
-        modalAnadirAmigo.style.display = "none";
+        formAnadirAmigo.submit();
+        // modalAnadirAmigo.style.display = "none";
       } else if (respuesta.status == 409) {
         alert("El usuario ya se encuentra en la lista de amigos o no existe");
       } else {
@@ -205,8 +261,36 @@ formAnadirAmigo.addEventListener("submit", function (event) {
   }
 });
 
+formCrearGrupo.addEventListener("submit", function (event) {
+  event.preventDefault();
+  if (!formCrearGrupo.checkValidity()) {
+    event.preventDefault();
+    event.stopPropagation();
+  } else {
+    crearGrupoFetch(nombreGrupo.value).then((respuesta) => {
+      if (respuesta.ok) {
+        formCrearGrupo.submit();
+      } else {
+        alert("Ha habido un error");
+      }
+    });
+  }
+});
+
 formAnadirGrupo.addEventListener("submit", function (event) {
   event.preventDefault();
+  if (!formAnadirGrupo.checkValidity()) {
+    event.preventDefault();
+    event.stopPropagation();
+  } else {
+    unirGrupoFetch(idGrupo.value).then((respuesta) => {
+      if (respuesta.ok) {
+        formAnadirGrupo.submit();
+      } else {
+        alert("Ha habido un error");
+      }
+    });
+  }
 });
 
 selectorAmigos.addEventListener("click", () => {

@@ -243,146 +243,64 @@ public class DaoEventos {
 		return listaSugerencias;
 	}
 	
-	public Grupo buscaGrupo(String id) {
-		Grupo grupo = null;
-		String sql = "SELECT * FROM grupo WHERE id = ?";
-		try {
-			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
-			preparedStatement.setString(1, id);
-			ResultSet rs = preparedStatement.executeQuery();
-			
-			while(rs.next()) {
-				grupo = new Grupo();
-				grupo.setId(rs.getString("id"));
-				grupo.setMiembros(listaMiembrosGrupo(rs.getString("id")));
-				grupo.setNombre(rs.getString("nombre"));
-			}
-			preparedStatement.close();
-		}catch(SQLException e) {
-			System.out.println(preparedStatement.toString());
-			e.printStackTrace();
-		}
-		return grupo;
-	}
+	/*
+	 * public ArrayList<EventoGrupal> cargarEventosGrupales(String usuario) {
+	 * ArrayList<EventoGrupal> eventosGrupales = new ArrayList<EventoGrupal>();
+	 * String sql =
+	 * "SELECT * FROM evento_grupal WHERE evento_grupal.id IN (SELECT id FROM participantes_evento WHERE usuario = ?)"
+	 * ; try { preparedStatement =
+	 * JdbcConnection.getConnection().prepareStatement(sql);
+	 * preparedStatement.setString(1, usuario); ResultSet rs =
+	 * preparedStatement.executeQuery();
+	 * 
+	 * while (rs.next()) { EventoGrupal evento = new EventoGrupal();
+	 * evento.setId(rs.getInt("id")); evento.setTitulo(rs.getString("titulo"));
+	 * evento.setPlanFinal(rs.getString("planFinal"));
+	 * evento.setFecha(rs.getString("fecha"));
+	 * evento.setGrupo(buscaGrupo(rs.getString("grupo")));
+	 * evento.setSugerencias(cargarSugerencias(rs.getInt("id")));
+	 * eventosGrupales.add(evento); } preparedStatement.close(); }catch(SQLException
+	 * e) { System.out.println(preparedStatement.toString()); e.printStackTrace(); }
+	 * return eventosGrupales; }
+	 */
 	
-	public ArrayList<Usuario> listaMiembrosGrupo (String idGrupo) {
-		ArrayList<Usuario> listaMiembros = new ArrayList<Usuario>();
-		String sql = "SELECT * FROM usuario WHERE username IN (SELECT usuario FROM miembros_grupo WHERE grupo = ?)";
-		try {
-			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
-			preparedStatement.setString(1, idGrupo);
-			ResultSet rs = preparedStatement.executeQuery();
-			
-			while(rs.next()) {
-				Usuario usuario = new Usuario();
-				usuario.setNombre(rs.getString("nombre"));
-				usuario.setUsername(rs.getString("username"));
-				listaMiembros.add(usuario);
-			}
-			preparedStatement.close();
-		}catch(SQLException e) {
-			System.out.println(preparedStatement.toString());
-			e.printStackTrace();
-		}
-		return listaMiembros;
-	}
-	
-	public Usuario adminGrupo (String idGrupo) {
-		Usuario usuario = null;
-		String sql = "SELECT * FROM usuario WHERE username IN (SELECT usuario FROM miembro_grupo WHERE grupo = ? AND administrador = 1)";
-		try {
-			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
-			preparedStatement.setString(1, idGrupo);
-			ResultSet rs = preparedStatement.executeQuery();
-			
-			while(rs.next()) {
-				usuario = new Usuario();
-				usuario.setNombre(rs.getString("nombre"));
-				usuario.setUsername(rs.getString("username"));
-			}
-			preparedStatement.close();
-		}catch(SQLException e) {
-			System.out.println(preparedStatement.toString());
-			e.printStackTrace();
-		}
-		return usuario;
-				
-	}
-	
-	public ArrayList<EventoGrupal> cargarEventosGrupales(String usuario) {
-		ArrayList<EventoGrupal> eventosGrupales = new ArrayList<EventoGrupal>();
-		String sql = "SELECT * FROM evento_grupal WHERE evento_grupal.id IN (SELECT id FROM participantes_evento WHERE usuario = ?)";
-		try {
-			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
-			preparedStatement.setString(1, usuario);
-			ResultSet rs = preparedStatement.executeQuery();
-			
-			while (rs.next()) {
-				EventoGrupal evento = new EventoGrupal();
-				evento.setId(rs.getInt("id"));
-				evento.setTitulo(rs.getString("titulo"));
-				evento.setPlanFinal(rs.getString("planFinal"));
-				evento.setFecha(rs.getString("fecha"));
-				evento.setGrupo(buscaGrupo(rs.getString("grupo")));
-				evento.setSugerencias(cargarSugerencias(rs.getInt("id")));
-				eventosGrupales.add(evento);
-			}
-			preparedStatement.close();
-		}catch(SQLException e) {
-			System.out.println(preparedStatement.toString());
-			e.printStackTrace();
-		}
-		return eventosGrupales;
-	}
-	
-	public ArrayList<EventoGrupal> cargarEventosGrupalesProximos(String usuario) {
-		ArrayList<EventoGrupal> eventosGrupales = new ArrayList<EventoGrupal>();
-		String sql = "SELECT * FROM evento_grupal WHERE evento_grupal.id IN (SELECT id FROM participantes_evento WHERE usuario = ? AND DATE(fecha) > CURRENT_DATE())";
-		try {
-			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
-			preparedStatement.setString(1, usuario);
-			ResultSet rs = preparedStatement.executeQuery();
-			
-			while (rs.next()) {
-				EventoGrupal evento = new EventoGrupal();
-				evento.setId(rs.getInt("id"));
-				evento.setTitulo(rs.getString("titulo"));
-				evento.setPlanFinal(rs.getString("planFinal"));
-				evento.setFecha(rs.getString("fecha"));
-				evento.setGrupo(buscaGrupo(rs.getString("grupo")));
-				evento.setSugerencias(cargarSugerencias(rs.getInt("id")));
-				eventosGrupales.add(evento);
-			}
-			preparedStatement.close();
-		}catch(SQLException e) {
-			System.out.println(preparedStatement.toString());
-			e.printStackTrace();
-		}
-		return eventosGrupales;
-	}
-	
-	public void editarEventoPersonal (EventoPersonal evento) {
-		String sql = "UPDATE evento_personal SET titulo = ?, visibilidad = ?, etiqueta = ?, fechaInicio = ?, fechaFin = ?, descripcion = ? WHERE id = ?";
-		try {
-			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
-			preparedStatement.setString(1, evento.getTitulo());
-			preparedStatement.setString(2, evento.getVisibilidad());
-			preparedStatement.setString(3, evento.getEtiqueta());
-			preparedStatement.setString(4, evento.getFechaInicio().toString());
-			if(evento.getFechaFin() != null) {
-				preparedStatement.setString(5, evento.getFechaFin().toString());
-			}else {
-				preparedStatement.setString(5, null);
-			}
-			preparedStatement.setString(6, evento.getDescripcion());
-			preparedStatement.setInt(7, evento.getId());
-			preparedStatement.executeUpdate();
-    	    preparedStatement.close();
-		} catch(SQLException e) {
-			System.out.println(preparedStatement.toString());
-			throw new RuntimeException();
-		}
-	}
+	/* Comentado puesto que no se implementa su uso y da problemas al haber movido funciones de las que dependen estos métodos
+	 * 
+	 * public ArrayList<EventoGrupal> cargarEventosGrupalesProximos(String usuario)
+	 * { ArrayList<EventoGrupal> eventosGrupales = new ArrayList<EventoGrupal>();
+	 * String sql =
+	 * "SELECT * FROM evento_grupal WHERE evento_grupal.id IN (SELECT id FROM participantes_evento WHERE usuario = ? AND DATE(fecha) > CURRENT_DATE())"
+	 * ; try { preparedStatement =
+	 * JdbcConnection.getConnection().prepareStatement(sql);
+	 * preparedStatement.setString(1, usuario); ResultSet rs =
+	 * preparedStatement.executeQuery();
+	 * 
+	 * while (rs.next()) { EventoGrupal evento = new EventoGrupal();
+	 * evento.setId(rs.getInt("id")); evento.setTitulo(rs.getString("titulo"));
+	 * evento.setPlanFinal(rs.getString("planFinal"));
+	 * evento.setFecha(rs.getString("fecha"));
+	 * evento.setGrupo(buscaGrupo(rs.getString("grupo")));
+	 * evento.setSugerencias(cargarSugerencias(rs.getInt("id")));
+	 * eventosGrupales.add(evento); } preparedStatement.close(); }catch(SQLException
+	 * e) { System.out.println(preparedStatement.toString()); e.printStackTrace(); }
+	 * return eventosGrupales; }
+	 * 
+	 * public void editarEventoPersonal (EventoPersonal evento) { String sql =
+	 * "UPDATE evento_personal SET titulo = ?, visibilidad = ?, etiqueta = ?, fechaInicio = ?, fechaFin = ?, descripcion = ? WHERE id = ?"
+	 * ; try { preparedStatement =
+	 * JdbcConnection.getConnection().prepareStatement(sql);
+	 * preparedStatement.setString(1, evento.getTitulo());
+	 * preparedStatement.setString(2, evento.getVisibilidad());
+	 * preparedStatement.setString(3, evento.getEtiqueta());
+	 * preparedStatement.setString(4, evento.getFechaInicio().toString());
+	 * if(evento.getFechaFin() != null) { preparedStatement.setString(5,
+	 * evento.getFechaFin().toString()); }else { preparedStatement.setString(5,
+	 * null); } preparedStatement.setString(6, evento.getDescripcion());
+	 * preparedStatement.setInt(7, evento.getId());
+	 * preparedStatement.executeUpdate(); preparedStatement.close(); }
+	 * catch(SQLException e) { System.out.println(preparedStatement.toString());
+	 * throw new RuntimeException(); } }
+	 */
 	
 	public void eliminarEventoPersonal (int idEvento) {
 		String sql = "DELETE FROM evento_personal WHERE id = ?";

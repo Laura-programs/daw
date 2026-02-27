@@ -91,7 +91,7 @@ function pintarTablaUsuarios(usuarios) {
 function pintarTablaGrupos(grupos) {
   grupos.forEach(grupo => {
    let fila = document.createElement("tr");
-   fila.innerHTML = `<td>${grupo.id}</td><td>${grupo.nombre}</td><td>${grupo.miembros.length()}</td><td>${grupo.admin.username}</td>`
+   fila.innerHTML = `<td>${grupo.id}</td><td>${grupo.nombre}</td><td>${grupo.miembros.length}</td><td>${grupo.admin.username}</td>`
    tablaGrupos.appendChild(fila);
   })
 }

@@ -170,7 +170,7 @@
           <p>¡Nuevo grupo!</p>
         </div>
         <div class="cuerpo-modal">
-          <form action="#">
+          <form action="/CalQuedar/UserCalendarServlet" method="post" novalidate id="form-crear-grupo">
             <label for="group-name">Escribe el nombre del grupo</label>
             <input
               type="text"
@@ -178,6 +178,7 @@
               id="group-name"
               class="form-control"
               placeholder="Happy flowers"
+              required
             />
             <button type="submit" class="boton boton-pequeño">Crear</button>
           </form>
@@ -196,13 +197,14 @@
         </div>
         <div class="cuerpo-modal">
           <form action="#" id="form-anadir-grupo">
-            <label for="group-name">Escribe el código del grupo</label>
+            <label for="group-id">Escribe el código del grupo</label>
             <input
               type="text"
-              name="group-name"
-              id="group-name"
+              name="group-id"
+              id="group-id"
               class="form-control"
               placeholder="C3C228"
+              required
             />
             <button
               type="submit"
@@ -228,7 +230,7 @@
           <p>¡Nuevo amigo!</p>
         </div>
         <div class="cuerpo-modal">
-          <form action="#" id="form-anadir-amigo" novalidate>
+          <form action="/CalQuedar/UserCalendarServlet" id="form-anadir-amigo" method="post" novalidate>
             <label for="group-name">Escribe el username</label>
             <input
               type="text"

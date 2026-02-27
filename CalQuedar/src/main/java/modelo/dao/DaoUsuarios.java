@@ -174,28 +174,6 @@ public class DaoUsuarios {
 		
 	}
 	
-	public ArrayList<Grupo> cargarGrupos(String username) {
-		ArrayList<Grupo> listaGrupos = new ArrayList<Grupo>();
-		String sql = "SELECT grupo.id, grupo.nombre FROM grupo LEFT JOIN miembros_grupo ON miembros_grupo.grupo = grupo.id WHERE miembros_grupo.usuario = ?";
-		try {
-			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
-			preparedStatement.setString(1, username);
-			ResultSet rs = preparedStatement.executeQuery();
-			
-			while(rs.next()) {
-				Grupo grupo = new Grupo();
-				grupo.setNombre(rs.getString("nombre"));
-				grupo.setId(rs.getString("id"));
-				listaGrupos.add(grupo);
-			}
-			preparedStatement.close();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return listaGrupos;
-	}
-	
 	public void anadirAmigo(String username, String usernameAmigo) {
 		String sql = "INSERT INTO amistad VALUES (?, ?);";
 		try {

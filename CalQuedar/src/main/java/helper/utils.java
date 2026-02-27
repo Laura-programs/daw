@@ -4,11 +4,10 @@ import java.util.Random;
 
 public class utils {
 	
-	public String colorAleatorio() {
+	public static String colorAleatorio() {
 		Random random = new Random();
-		int nextInt = random.nextInt(0xffffff + 1);
-		String color = String.valueOf(nextInt);
-		return color;
+		int rgb = random.nextInt(0x1000000);
+        return String.format("%06X", rgb);
 	}
 	
 	public static boolean intToBool(int dato) {
