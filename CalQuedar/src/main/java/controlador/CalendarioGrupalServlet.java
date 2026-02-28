@@ -28,12 +28,11 @@ public class CalendarioGrupalServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.sendRedirect("./calendarioGrupo/grupo.html");
 		String grupoVisita = request.getParameter("grupo");
 		HttpSession sesion = request.getSession();
 		String usernameSesionado = (String) sesion.getAttribute("username");
 		if(usernameSesionado != null && !usernameSesionado.isBlank()) {
-			response.sendRedirect("./calendarioGrupo/grupo.html?amigo=" + grupoVisita);
+			response.sendRedirect("./calendarioGrupo/grupo.html?grupo=" + grupoVisita);
 		}else {
 			response.sendRedirect("/CalQuedar/Login");
 		}

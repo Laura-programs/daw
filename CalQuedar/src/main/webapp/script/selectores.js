@@ -17,6 +17,7 @@ export const contenidoGrupos = document.querySelector(".contenido-menu-grupos");
 export const listaGrupos = document.getElementById("lista-grupos");
 export const listaAmigos = document.getElementById("lista-amigos");
 export const contenedorAmigos = document.getElementById("lista-amigos");
+export const elimnarAmigoBtn = document.getElementById("eliminar-amigo-btn");
 
 //Calendario
 export const calendarioCentral = document.getElementById('calendar');
@@ -49,6 +50,13 @@ export const descripcion = document.getElementById("descripcion");
 export const btnEliminar = document.getElementById("eliminar-evento");
 export const btnActualizar = document.getElementById("actualizar-evento");
 export const btnCancelar = document.getElementById("boton-cancelar");
+
+//Calendario grupal
+export const nombreGrupoHeader = document.getElementById("nombre-grupo");
+export const listaMiembros = document.getElementById("miembros-grupo");
+export const codigoGrupo = document.getElementById("codigo-grupo");
+export const eliminarGrupoBtn = document.getElementById("eliminar-grupo-btn");
+export const abandonarGrupoBtn = document.getElementById("abandonar-grupo-btn");
 
 //Panel administrador
 export const contadorUsuarios = document.getElementById("contadorUsuarios");

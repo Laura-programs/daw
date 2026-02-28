@@ -236,6 +236,26 @@ export function procesarEventosAjenos(eventosRespuesta) {
   return listaEventos;
 }
 
+export function procesarDiasLibres(eventosRespuesta) {
+  let listaEventos = [];
+  eventosRespuesta.forEach((eventoFetch) => {
+    let evento = new EventoCalendarioDTO(
+      eventoFetch.id,
+      BBDDtoDateToISO(eventoFetch.fechaInicio),
+      BBDDtoDateToISO(eventoFetch.fechaFin),
+      eventoFetch.creador.nombre,
+      "",
+      false,
+      switchBackgroundColor(eventoFetch.etiqueta),
+      switchBorderColor(eventoFetch.etiqueta),
+      "black",
+    );
+    listaEventos.push(evento);
+  });
+
+  return listaEventos;
+}
+
 export function validarNif(dni) {
   const letras = "TRWAGMYFPDXBNJZSQVHLCKE";
 

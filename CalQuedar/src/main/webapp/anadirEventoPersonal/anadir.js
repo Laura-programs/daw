@@ -74,6 +74,7 @@ addEventListener("DOMContentLoaded", function () {
         },
         events: listaEventosProximosCalendario,
         header: false,
+        height : "95%"
       });
       sideCalendar.render();
     });

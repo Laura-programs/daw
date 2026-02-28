@@ -131,7 +131,7 @@ private static DaoGrupos instance;
 				grupo.setId(rs.getString("id"));
 				grupo.setMiembros(listaMiembrosGrupo(rs.getString("id")));
 				grupo.setNombre(rs.getString("nombre"));
-				grupo.setAdmin(adminGrupo());
+				grupo.setAdmin(adminGrupo(rs.getString("id")));
 			}
 			preparedStatement.close();
 		}catch(SQLException e) {
@@ -165,7 +165,7 @@ private static DaoGrupos instance;
 	
 	public Usuario adminGrupo (String idGrupo) {
 		Usuario usuario = null;
-		String sql = "SELECT * FROM usuario WHERE username IN (SELECT usuario FROM miembro_grupo WHERE grupo = ? AND administrador = 1)";
+		String sql = "SELECT * FROM usuario WHERE username IN (SELECT usuario FROM miembros_grupo WHERE grupo = ? AND administrador = 1)";
 		try {
 			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
 			preparedStatement.setString(1, idGrupo);
@@ -183,5 +183,33 @@ private static DaoGrupos instance;
 		}
 		return usuario;
 				
+	}
+	
+	public void eliminarGrupo(String idGrupo) {
+		String sql = "DELETE FROM grupo WHERE id = ?";
+		try {
+			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, idGrupo);
+			preparedStatement.executeUpdate();
+			preparedStatement.close();
+		} catch (SQLException e) {
+			System.out.println(preparedStatement.toString());
+			throw new RuntimeException();
+		}
+	}
+	
+	public void abandonarGrupo(String idGrupo, String username) {
+		String sql = "DELETE FROM miembros_grupo WHERE grupo = ? AND usuario = ?";
+		try {
+			preparedStatement = JdbcConnection.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, idGrupo);
+			preparedStatement.setString(2, username);
+			preparedStatement.executeUpdate();
+			preparedStatement.close();
+		} catch (SQLException e) {
+			System.out.println(preparedStatement.toString());
+			throw new RuntimeException();
+		}
+		
 	}
 }

@@ -129,6 +129,52 @@ main {
     margin: 8px 0 8px 0;
 }
 
+.grupo-botones {
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.non-role {
+    background-color: var(--secundario-claro);
+    border-left: 4px solid var(--principal-claro);
+    border-right: 4px solid var(--principal-claro);
+}
+
+.admin {
+    background-color: var(--secundario-medio-oscuro);
+    border-left: 4px solid var(--principal-medio-oscuro);
+    border-right: 4px solid var(--principal-medio-oscuro);
+}
+
+.miembro {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 4px;
+    margin: 4px;
+    align-items: center;
+    padding: 0 4px;
+}
+
+.miembro a {
+    color: black;
+}
+
+.info-miembro {
+    display: flex;
+    align-items: center;
+}
+
+.info-miembro i {
+    margin-right: 4px;
+}
+
+.miembro i {
+    font-size: 1.5625vw;
+}
+
 @media (max-width: 700px) {
     main {
         display: flex;

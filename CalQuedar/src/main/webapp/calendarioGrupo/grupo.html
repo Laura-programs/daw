@@ -24,7 +24,7 @@
           <img src="../img/logo.png" alt="Logo CalQuedar" />
         </a>
       </div>
-      <h1>Planes con NOMBREGRUPO</h1>
+      <h1>Planes con <span id="nombre-grupo"></span></h1>
       <nav>
         <ul>
           <li>
@@ -61,17 +61,6 @@
       </aside>
 
       <section class="centro">
-        <!--Filtros de vista-->
-        <article class="filtros">
-          <button class="viaje boton-filtro">Viaje</button>
-          <button class="dia-libre boton-filtro">Día libre</button>
-          <button class="cita boton-filtro">Cita</button>
-          <button class="plan-grupo boton-filtro">Plan grupo</button>
-          <button class="misc boton-filtro">Misc.</button>
-          <button class="medico boton-filtro">Médico</button>
-          <button class="selfcare boton-filtro">Selfcare</button>
-        </article>
-
         <!--Calendario-->
         <div class="caja">
           <div
@@ -82,16 +71,20 @@
       </section>
       <aside class="lateral-derecha">
         <h2>Miembros</h2>
-        <div id="miembros-grupo"></div>
+        <div id="miembros-grupo">
+          
+        </div>
         <div aria-roledescription="Acciones del grupo">
-          <p>Código: <span>CódigoGrupo</span></p>
-          <button class="boton boton-pequeño" id="eliminar-grupo-btn">
-            Eliminar
-          </button>
-          <!--Oculto si no eres admin-->
-          <button class="boton boton-pequeño" id="abandonar-grupo-btn">
-            Abandonar
-          </button>
+          <p class="text-center">Código: <span id="codigo-grupo"></span></p>
+          <div class="grupo-botones">
+            <!--Oculto si no eres admin-->
+            <button class="boton boton-pequeño" id="eliminar-grupo-btn">
+              Eliminar
+            </button>
+            <button class="boton boton-pequeño" id="abandonar-grupo-btn">
+              Abandonar
+            </button>
+          </div>
         </div>
       </aside>
     </main>

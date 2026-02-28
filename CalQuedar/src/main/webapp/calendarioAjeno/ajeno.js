@@ -5,7 +5,8 @@ import {
   calendarioCentral,
   calendarioLateral,
   nombreAmigoHeader,
-  listaAmigos
+  listaAmigos,
+  elimnarAmigoBtn,
 } from "../script/selectores.js";
 
 const urlActual = new URL(window.location.href).host;
@@ -54,12 +55,25 @@ async function cargarAmigosComun(usuario) {
   );
 }
 
+async function eliminarAmigo(amigo) {
+  return fetch(
+    `http://${urlActual}/CalQuedar/rest/User/EliminarAmigo?amigo=${amigo}`,
+    {
+      headers: {
+        "Access-Control-Allow-origin": "*",
+      },
+    },
+  );
+}
+
+let usernameAmigo;
 let listaEventosCalendario = [];
 let listaEventosProximosCalendario = [];
 
 document.addEventListener("DOMContentLoaded", function () {
   let params = new URLSearchParams(document.location.search);
   let usuarioAmigo = params.get("amigo");
+  usernameAmigo = usuarioAmigo;
   cargarInfoAmigo(usuarioAmigo)
     .then((amigo) => amigo.json())
     .then((datos) => {
@@ -109,6 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         events: listaEventosProximosCalendario,
         header: false,
+        height : "95%"
       });
       sideCalendar.render();
     });
@@ -116,6 +131,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 btnDropDown.addEventListener("click", function () {
   dropDownLogOut.classList.toggle("muestra");
+});
+
+elimnarAmigoBtn.addEventListener("click", function () {
+  eliminarAmigo(usernameAmigo).then((respuesta) => {
+    if (respuesta.ok) {
+      window.location.replace("/CalQuedar/UserCalendarServlet");
+    } else {
+      alert("Ha habido un error");
+    }
+  });
 });
 
 function pintaAmigos(amigos) {

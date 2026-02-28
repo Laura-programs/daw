@@ -167,6 +167,13 @@ main {
     padding: 0;
 }
 
+.grupo-botones {
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
 @media (max-width: 700px) {
     main {
         display: flex;

@@ -129,4 +129,28 @@ public class EventoApi {
 		}
 		return Response.status(Response.Status.OK).entity("Evento eliminado").build();
 	}
+	
+	@GET
+	@Path("/Cargar/DiasLibres")
+	public Response cargarDiasLibres(@QueryParam("grupo") String idGrupo) {
+		ArrayList<EventoPersonal> listaDiasLibres = null;
+		listaDiasLibres = DaoEventos.getInstancia().cargarDiasLibres(idGrupo);
+		if(listaDiasLibres.isEmpty() || listaDiasLibres == null) {
+			return Response.status(Response.Status.NOT_FOUND).entity(listaDiasLibres = new ArrayList<EventoPersonal>()).build();
+		}else {
+			return Response.status(Response.Status.OK).entity(listaDiasLibres).build();
+		}
+	}
+	
+	@GET
+	@Path("/Cargar/DiasLibresProximos")
+	public Response cargarDiasLibresProximos(@QueryParam("grupo") String idGrupo) {
+		ArrayList<EventoPersonal> listaDiasLibres = null;
+		listaDiasLibres = DaoEventos.getInstancia().cargarDiasLibresProximos(idGrupo);
+		if(listaDiasLibres.isEmpty() || listaDiasLibres == null) {
+			return Response.status(Response.Status.NOT_FOUND).entity(listaDiasLibres = new ArrayList<EventoPersonal>()).build();
+		}else {
+			return Response.status(Response.Status.OK).entity(listaDiasLibres).build();
+		}
+	}
 }

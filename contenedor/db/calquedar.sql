@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-02-2026 a las 17:47:35
+-- Tiempo de generación: 27-02-2026 a las 16:29:12
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -31,13 +31,6 @@ CREATE TABLE `amistad` (
   `amigo1` varchar(36) NOT NULL,
   `amigo2` varchar(36) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
---
--- Volcado de datos para la tabla `amistad`
---
-
-INSERT INTO `amistad` (`amigo1`, `amigo2`) VALUES
-('tokoyamik', 'laura_mora');
 
 -- --------------------------------------------------------
 
@@ -69,15 +62,6 @@ CREATE TABLE `evento_personal` (
   `descripcion` mediumtext DEFAULT NULL,
   `creador` varchar(36) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
---
--- Volcado de datos para la tabla `evento_personal`
---
-
-INSERT INTO `evento_personal` (`id`, `titulo`, `visibilidad`, `etiqueta`, `fechaInicio`, `fechaFin`, `descripcion`, `creador`) VALUES
-(1, 'Cervezas', 'publico', 'plan-grupo', '2026-02-20 18:30:00', NULL, 'Cervezas con Abi para celebrar el fin de exámenes', 'laura_mora'),
-(2, 'Exámenes', 'publico', 'misc', '2026-02-16 16:30:00', '2026-02-20 18:30:00', 'Todos los exámenes :(', 'laura_mora'),
-(4, 'Aniversario', 'publico', 'cita', '2026-02-15 11:00:00', NULL, 'Ir a ver museos con Laura', 'tokoyamik');
 
 -- --------------------------------------------------------
 
@@ -132,8 +116,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`username`, `nombre`, `contrasenya`, `administrador`) VALUES
-('laura_mora', 'Laura', 'Test!123', 0),
-('tokoyamik', 'Toko', 'Test!123', 0);
+('12345678Z', 'Jane Doe', 'Test!123', 1);
 
 --
 -- Índices para tablas volcadas
@@ -200,7 +183,7 @@ ALTER TABLE `evento_grupal`
 -- AUTO_INCREMENT de la tabla `evento_personal`
 --
 ALTER TABLE `evento_personal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas
